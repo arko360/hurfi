@@ -42,21 +42,20 @@ publish_static() {
 
   if command -v rsync >/dev/null 2>&1; then
     rsync -a --delete \
-      --exclude='.htaccess' \
       --exclude='.user.ini' \
       --exclude='cgi-bin' \
       --exclude='default.php' \
       "$src"/ "$dest"/
   else
     log "rsync not found — using portable cp publish"
-    # Remove old publishable files (keep Hostinger specials)
+    # Remove old publishable files (keep Hostinger specials except .htaccess which we manage)
     if [ -d "$dest" ]; then
       for item in "$dest"/* "$dest"/.[!.]* "$dest"/..?*; do
         [ -e "$item" ] || continue
         base=$(basename "$item")
         case "$base" in
           .|..) continue ;;
-          .htaccess|.user.ini|cgi-bin|default.php) continue ;;
+          .user.ini|cgi-bin|default.php) continue ;;
         esac
         rm -rf "$item"
       done

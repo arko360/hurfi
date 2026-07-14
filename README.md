@@ -1,33 +1,27 @@
 # Hurfi
 
-Static website — HTML, CSS, JavaScript.
+Vite + React site for [hurfi.com](https://hurfi.com).
 
-```text
-hurfi/
-├── index.html
-├── css/style.css
-├── js/main.js
-└── assets/
-    ├── images/
-    ├── icons/
-    └── fonts/
-```
-
-## Go live
+## Develop
 
 ```powershell
+npm install
+npm run dev
+```
+
+## Build & deploy
+
+```powershell
+npm run build
 git add .
 git commit -m "Update site"
 git push origin main
 ```
 
-## Sync deploy secrets (one-time / whenever SSH fails)
+Pushing to `main` runs GitHub Actions → Hostinger.
+
+## Sync deploy secrets
 
 ```powershell
-gh auth login
 powershell -File .\scripts\sync-github-secrets.ps1
 ```
-
-Actions log-এ `Prepare SSH key` step-এ fingerprint দেখবে:
-
-`SHA256:qPPsmNfETzCQmqajLA3MhAb1VQQr7avnpE3xSc9/SB4`
