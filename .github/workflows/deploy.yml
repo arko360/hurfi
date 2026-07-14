@@ -70,19 +70,37 @@ jobs:
 
       - name: Prepare SSH
         if: steps.build.outputs.skip_deploy != 'true'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+
+          # Write key via env + strip Windows CRLF (common libcrypto cause).
+          # Avoid echo "${{ secrets.* }}" which can corrupt OpenSSH private keys.
+          umask 077
+          printf '%s\n' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+          if ! ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null 2>&1; then
+            echo "::error::SSH_PRIVATE_KEY could not be loaded by OpenSSH (libcrypto)."
+            echo "::error::Re-paste the full key from .deploy-keys/github_actions_deploy into the GitHub Secret (BEGIN/END lines included)."
+            exit 1
+          fi
+
+          printf '%s\n' "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+
           printf '%s\n' \
             "Host hurfi-deploy" \
-            "  HostName ${{ secrets.SSH_HOST }}" \
-            "  Port ${{ secrets.SSH_PORT }}" \
-            "  User ${{ secrets.SSH_USER }}" \
+            "  HostName ${SSH_HOST}" \
+            "  Port ${SSH_PORT}" \
+            "  User ${SSH_USER}" \
             "  IdentityFile ~/.ssh/deploy_key" \
             "  IdentitiesOnly yes" \
             "  StrictHostKeyChecking yes" \

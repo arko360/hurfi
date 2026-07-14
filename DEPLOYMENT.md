@@ -45,6 +45,17 @@ Use the deploy key already generated locally at `.deploy-keys/github_actions_dep
 -----END OPENSSH PRIVATE KEY-----
 ```
 
+If Actions fails with `Load key ... error in libcrypto`:
+
+1. Local key is OK if `ssh-keygen -y -f .\.deploy-keys\github_actions_deploy` prints a public key.
+2. Re-create the secret from the raw file (avoid Word/Notepad mangling). Prefer:
+
+```powershell
+Get-Content .\.deploy-keys\github_actions_deploy -Raw | Set-Clipboard
+```
+
+3. The workflow strips `\r` (CRLF) automatically; still paste the key cleanly once.
+
 ### `SSH_KNOWN_HOSTS`
 
 Paste all lines from `.deploy-keys/known_hosts`, or regenerate:
