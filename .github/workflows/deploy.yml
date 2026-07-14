@@ -68,78 +68,75 @@ jobs:
           fi
           echo "All required secrets are present."
 
-      - name: Prepare SSH
+      # Loads the private key into ssh-agent (handles formatting better than echo > file)
+      - name: Start SSH agent
+        if: steps.build.outputs.skip_deploy != 'true'
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy over SSH
         if: steps.build.outputs.skip_deploy != 'true'
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
           SSH_USER: ${{ secrets.SSH_USER }}
-        run: |
-          set -euo pipefail
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-
-          # Write key via env + strip Windows CRLF (common libcrypto cause).
-          # Avoid echo "${{ secrets.* }}" which can corrupt OpenSSH private keys.
-          umask 077
-          printf '%s\n' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-
-          if ! ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null 2>&1; then
-            echo "::error::SSH_PRIVATE_KEY could not be loaded by OpenSSH (libcrypto)."
-            echo "::error::Re-paste the full key from .deploy-keys/github_actions_deploy into the GitHub Secret (BEGIN/END lines included)."
-            exit 1
-          fi
-
-          printf '%s\n' "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-
-          printf '%s\n' \
-            "Host hurfi-deploy" \
-            "  HostName ${SSH_HOST}" \
-            "  Port ${SSH_PORT}" \
-            "  User ${SSH_USER}" \
-            "  IdentityFile ~/.ssh/deploy_key" \
-            "  IdentitiesOnly yes" \
-            "  StrictHostKeyChecking yes" \
-            "  UserKnownHostsFile ~/.ssh/known_hosts" \
-            > ~/.ssh/config
-          chmod 600 ~/.ssh/config
-          ssh hurfi-deploy 'echo SSH_OK; hostname; pwd'
-
-      - name: Upload artifacts + remote deploy scripts
-        if: steps.build.outputs.skip_deploy != 'true'
-        env:
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
           REPO_PATH: ${{ secrets.REPO_PATH }}
           MODE: ${{ steps.build.outputs.artifact_mode }}
           SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          STAGING="/home/${{ secrets.SSH_USER }}/domains/hurfi.com/shared/staging_${SHA:0:7}"
-          REPO_PATH="${REPO_PATH:-/home/${{ secrets.SSH_USER }}/domains/hurfi.com/repo}"
 
-          ssh hurfi-deploy "mkdir -p '$STAGING' && rm -rf '$STAGING'/* '$STAGING'/.[!.]* 2>/dev/null || true; mkdir -p '$STAGING'"
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
-          rsync -az --delete \
-            -e "ssh" \
-            deploy_artifact/ "hurfi-deploy:$STAGING/"
+          # Explicit SSH opts — do not rely on Host aliases between steps
+          SSH_OPTS=(
+            -p "$SSH_PORT"
+            -o IdentitiesOnly=yes
+            -o StrictHostKeyChecking=yes
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts"
+            -o BatchMode=yes
+            -o ConnectTimeout=30
+          )
 
-          ssh hurfi-deploy "mkdir -p '$REPO_PATH/scripts'"
-          rsync -az \
-            -e "ssh" \
-            scripts/remote-deploy.sh "hurfi-deploy:$REPO_PATH/scripts/remote-deploy.sh"
+          remote() {
+            ssh "${SSH_OPTS[@]}" "${SSH_USER}@${SSH_HOST}" "$@"
+          }
 
-          ssh hurfi-deploy "chmod +x '$REPO_PATH/scripts/remote-deploy.sh' && \
-            DEPLOY_PATH='${DEPLOY_PATH}' \
-            REPO_PATH='${REPO_PATH}' \
-            RELEASES_PATH='/home/${{ secrets.SSH_USER }}/domains/hurfi.com/releases' \
+          echo "Testing SSH connectivity..."
+          remote 'echo SSH_OK; hostname; pwd; which rsync || echo NO_RSYNC; which tar'
+
+          SHORT_SHA="${SHA:0:7}"
+          STAGING="/home/${SSH_USER}/domains/hurfi.com/shared/staging_${SHORT_SHA}"
+          REPO_PATH="${REPO_PATH:-/home/${SSH_USER}/domains/hurfi.com/repo}"
+          RELEASES_PATH="/home/${SSH_USER}/domains/hurfi.com/releases"
+
+          echo "Preparing staging: $STAGING"
+          remote "mkdir -p '$STAGING' '$REPO_PATH/scripts' '$RELEASES_PATH' && find '$STAGING' -mindepth 1 -delete"
+
+          echo "Uploading artifacts (tar-over-ssh; works even if remote rsync is missing)..."
+          tar -C deploy_artifact -czf - . | remote "tar -xzf - -C '$STAGING'"
+
+          echo "Uploading remote-deploy.sh..."
+          tar -C scripts -czf - remote-deploy.sh | remote "tar -xzf - -C '$REPO_PATH/scripts'"
+          remote "chmod +x '$REPO_PATH/scripts/remote-deploy.sh'"
+
+          echo "Running remote deploy (mode=$MODE)..."
+          remote "DEPLOY_PATH='$DEPLOY_PATH' REPO_PATH='$REPO_PATH' RELEASES_PATH='$RELEASES_PATH' \
             bash '$REPO_PATH/scripts/remote-deploy.sh' '$STAGING' '$MODE' '$SHA'"
 
-          # Cleanup staging
-          ssh hurfi-deploy "rm -rf '$STAGING'"
+          echo "Cleaning staging..."
+          remote "rm -rf '$STAGING'"
+
+          echo "### Deploy finished" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Target: \`$DEPLOY_PATH\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Mode: \`$MODE\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- SHA: \`$SHORT_SHA\`" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Empty project notice
         if: steps.build.outputs.skip_deploy == 'true'
