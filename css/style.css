@@ -238,17 +238,19 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .hero-grid {
   position: relative;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 48px 24px 72px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 48px clamp(24px, 4vw, 64px) 72px;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 36px;
+  gap: clamp(28px, 3vw, 48px);
   align-items: center;
 }
 
 .hero-copy {
-  max-width: 620px;
+  max-width: none;
+  width: 100%;
 }
 
 .pill {
@@ -755,13 +757,14 @@ body.nav-open .nav-toggle span:nth-child(3) {
   }
 
   .hero-copy {
-    max-width: 720px;
+    max-width: none;
   }
 
   .hero-visual {
     min-height: 460px;
-    max-width: 520px;
-    margin: 0 auto;
+    max-width: none;
+    width: 100%;
+    margin: 0;
   }
 
   .visual-stage {
