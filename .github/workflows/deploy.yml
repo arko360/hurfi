@@ -85,13 +85,26 @@ jobs:
 
           if ! ssh-keygen -y -f ~/.ssh/deploy_key >/tmp/deploy_key.pub 2>/tmp/deploy_key.err; then
             echo "::error::SSH_PRIVATE_KEY is invalid (libcrypto / parse error)."
-            echo "::error::Re-copy from .deploy-keys/github_actions_deploy into GitHub Secret SSH_PRIVATE_KEY."
+            echo "::error::Run locally: powershell -File scripts/sync-github-secrets.ps1"
             cat /tmp/deploy_key.err || true
             exit 1
           fi
 
-          echo "Deploy key fingerprint:"
-          ssh-keygen -lf ~/.ssh/deploy_key
+          ACTUAL_FP="$(ssh-keygen -lf ~/.ssh/deploy_key | awk '{print $2}')"
+          EXPECTED_FP="SHA256:qPPsmNfETzCQmqajLA3MhAb1VQQr7avnpE3xSc9/SB4"
+
+          echo "Deploy key fingerprint: $(ssh-keygen -lf ~/.ssh/deploy_key)"
+          echo "Expected fingerprint:   256 ${EXPECTED_FP} github-actions-deploy-hurfi (ED25519)"
+
+          if [ "$ACTUAL_FP" != "$EXPECTED_FP" ]; then
+            echo "::error::SSH_PRIVATE_KEY fingerprint mismatch."
+            echo "::error::Actual:   $ACTUAL_FP"
+            echo "::error::Expected: $EXPECTED_FP"
+            echo "::error::Fix permanently: powershell -File scripts/sync-github-secrets.ps1"
+            exit 1
+          fi
+
+          echo "Fingerprint OK — this key matches the Hostinger authorized_keys entry."
 
           printf '%s\n' "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
