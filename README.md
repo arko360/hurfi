@@ -1,9 +1,22 @@
-# hurfi
+# Hurfi
 
-Website repository for [hurfi.com](https://hurfi.com) — [GitHub](https://github.com/arko360/hurfi).
+Static website — HTML, CSS, JavaScript.
 
-## Deploy
+```text
+hurfi/
+├── index.html
+├── css/style.css
+├── js/main.js
+└── assets/
+    ├── images/
+    ├── icons/
+    └── fonts/
+```
 
-Production deploys run automatically on every push to `main`.
+## Go live
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for GitHub Secrets, SSH setup, rollback, and troubleshooting.
+```powershell
+git add .
+git commit -m "Update site"
+git push origin main
+```

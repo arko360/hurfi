@@ -3,74 +3,174 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hurfi — Test Site</title>
-  <style>
-    :root {
-      --ink: #15231b;
-      --paper: #f3efe6;
-      --accent: #2f6b4f;
-      --muted: #5c6b62;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, #dfece4 0%, transparent 45%),
-        linear-gradient(160deg, #f7f3ea 0%, #e7eee8 55%, #d9e4db 100%);
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-    }
-
-    main {
-      width: min(40rem, 100%);
-      text-align: center;
-    }
-
-    .brand {
-      margin: 0;
-      font-size: clamp(2.75rem, 8vw, 4.5rem);
-      letter-spacing: -0.04em;
-      line-height: 0.95;
-      color: var(--accent);
-    }
-
-    h1 {
-      margin: 1rem 0 0.5rem;
-      font-size: clamp(1.25rem, 3vw, 1.75rem);
-      font-weight: 600;
-    }
-
-    p {
-      margin: 0 auto;
-      max-width: 28rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .badge {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.4rem 0.85rem;
-      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-      color: var(--accent);
-      font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-  </style>
+  <meta name="description" content="Hurfi — Build an international online presence that global buyers can trust." />
+  <title>Hurfi — Global B2B Brand Growth Partner</title>
+  <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+  <link rel="icon" href="assets/icons/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/icons/hurfi-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <main>
-    <p class="brand">Hurfi</p>
-    <h1>Deployment test page</h1>
-    <p>If you can see this on hurfi.com, the static deploy pipeline is working.</p>
-    <span class="badge">index.html · ok</span>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Hurfi home">
+        <img class="brand-mark" src="assets/icons/hurfi-mark.png" alt="" width="34" height="34" />
+        <span class="brand-text">Hurfi</span>
+      </a>
+
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <a href="#home" class="is-active">Home</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#results">Results</a>
+        <a href="#websites">Websites</a>
+        <a href="#process">Process</a>
+        <a href="#proof">Proof</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="link-quiet" href="#services">See Our Services</a>
+        <a class="btn btn-primary btn-sm" href="#contact">
+          Book a Strategy Call
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="home">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="pill">
+            <span class="pill-dot" aria-hidden="true"></span>
+            Global B2B Brand Growth Partner
+          </div>
+
+          <h1>
+            Build an International Online Presence
+            <span class="text-accent">That Global Buyers Can Trust</span>
+          </h1>
+
+          <p class="lede">
+            Hurfi helps B2B brands and manufacturers build a trusted online presence,
+            get found by the right buyers, and turn visibility into real enquiries —
+            across website, search, and digital marketing.
+          </p>
+
+          <p class="chain">
+            <strong>Website. SEO. Digital Marketing. Google Visibility. AEO. GEO. Proof. CTA.</strong>
+            <span class="text-accent"> All connected for business growth.</span>
+          </p>
+
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#contact">
+              Build My Online Presence
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn-ghost" href="#process">See How Hurfi Works</a>
+          </div>
+
+          <ul class="feature-pills">
+            <li><span class="check" aria-hidden="true"></span>Professional Brand Presence</li>
+            <li><span class="check" aria-hidden="true"></span>Search Visibility</li>
+            <li><span class="check" aria-hidden="true"></span>AI Search Readiness</li>
+            <li><span class="check" aria-hidden="true"></span>Google &amp; GMB Ranking Support</li>
+            <li><span class="check" aria-hidden="true"></span>Trust-Building Website</li>
+            <li><span class="check" aria-hidden="true"></span>More Contact Opportunities</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-stage" data-visual>
+            <div class="glow glow-a"></div>
+            <div class="glow glow-b"></div>
+
+            <div class="viz-card viz-main float-a">
+              <div class="viz-main-top">
+                <div class="viz-bars">
+                  <span style="--h:42%"></span>
+                  <span style="--h:68%"></span>
+                  <span style="--h:55%"></span>
+                  <span style="--h:88%"></span>
+                  <span style="--h:72%"></span>
+                  <span style="--h:96%"></span>
+                </div>
+                <div class="viz-main-meta">
+                  <p>Global Visibility</p>
+                  <strong>+214%</strong>
+                </div>
+              </div>
+              <div class="viz-main-bottom">
+                <div class="mini-row"><i></i><i></i><i></i></div>
+                <div class="mini-line"></div>
+                <div class="mini-line short"></div>
+              </div>
+            </div>
+
+            <div class="viz-card viz-web float-b">
+              <div class="viz-card-head">
+                <span class="viz-icon code"></span>
+                <div>
+                  <strong>Website Development</strong>
+                  <small>Trust-first product sites</small>
+                </div>
+              </div>
+              <div class="code-lines">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+
+            <div class="viz-card viz-quote float-c">
+              <p>“Hurfi is a top B2B online presence agency for manufacturers who want global buyers.”</p>
+            </div>
+
+            <div class="viz-card viz-marketing float-d">
+              <div class="viz-card-head">
+                <span class="viz-icon chart"></span>
+                <strong>Digital Marketing</strong>
+              </div>
+              <div class="stat-grid">
+                <div><em>+89%</em><span>Reach</span></div>
+                <div><em>+156</em><span>Leads</span></div>
+                <div><em>+42%</em><span>Engage</span></div>
+              </div>
+            </div>
+
+            <div class="viz-card viz-gmb float-e">
+              <div class="viz-card-head">
+                <span class="viz-icon pin"></span>
+                <strong>Google Business</strong>
+              </div>
+              <div class="stars">★★★★★</div>
+              <p>+2.4K Profile views</p>
+            </div>
+
+            <div class="node node-social float-f"><span></span>Social</div>
+            <div class="node node-seo float-g"><span></span>SEO</div>
+            <div class="node node-geo float-h"><span></span>GEO</div>
+            <div class="node node-aeo float-i"><span></span>AEO</div>
+
+            <svg class="viz-lines" viewBox="0 0 420 480" preserveAspectRatio="none">
+              <path d="M70 120C120 160 150 200 190 230" />
+              <path d="M340 90C300 140 280 180 250 220" />
+              <path d="M80 360C140 320 180 300 220 280" />
+              <path d="M350 400C300 350 270 320 240 290" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <script src="js/main.js" defer></script>
 </body>
 </html>
