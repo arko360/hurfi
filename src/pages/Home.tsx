@@ -1,34 +1,46 @@
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./Home.css";
 
-export function Home() {
-  useEffect(() => {
-    if (window.location.hash) {
-      const id = window.location.hash.slice(1);
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
+const logos = ["ApexForge", "Nortek", "Sinotec", "Valora", "BrightGrid", "OmniYield", "Castello", "Helix"];
 
+const values = [
+  {
+    title: "International Growth",
+    text: "Position your brand for overseas buyers with a presence that builds trust across markets.",
+    icon: "🌐",
+  },
+  {
+    title: "Data-Driven Results",
+    text: "SEO, content, and conversion systems measured by traffic, leads, and real enquiries.",
+    icon: "📊",
+  },
+  {
+    title: "End-to-End Solutions",
+    text: "Website, search, branding, and marketing connected — not delivered as disconnected tasks.",
+    icon: "⚡",
+  },
+];
+
+export function Home() {
   return (
-    <main id="top">
-      <section className="hero" id="home">
-        <div className="hero-grid">
+    <main>
+      <section className="hero">
+        <div className="container hero-grid">
           <div className="hero-copy">
             <motion.div
               className="pill"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
             >
-              <span className="pill-dot" aria-hidden="true" />
+              <span className="pill-dot" />
               Global B2B Brand Growth Partner
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.08 }}
+              transition={{ delay: 0.06 }}
             >
               Build an International Online Presence
               <span className="text-accent"> That Global Buyers Can Trust</span>
@@ -38,38 +50,25 @@ export function Home() {
               className="lede"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.16 }}
+              transition={{ delay: 0.12 }}
             >
-              Hurfi helps B2B brands and manufacturers build a trusted online presence, get found by
-              the right buyers, and turn visibility into real enquiries — across website, search, and
-              digital marketing.
-            </motion.p>
-
-            <motion.p
-              className="chain"
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.24 }}
-            >
-              <strong>Website. SEO. Digital Marketing. Google Visibility. AEO. GEO. Proof. CTA.</strong>
-              <span className="text-accent"> All connected for business growth.</span>
+              Hurfi helps manufacturers and B2B brands become visible, credible, and conversion-ready
+              online — across website, SEO, and digital growth systems.
             </motion.p>
 
             <motion.div
               className="hero-ctas"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.32 }}
+              transition={{ delay: 0.18 }}
             >
-              <a className="btn btn-primary" href="#contact">
+              <Link className="btn btn-primary" to="/contact">
                 Build My Online Presence
-                <span className="btn-arrow" aria-hidden="true">
-                  →
-                </span>
-              </a>
-              <a className="btn btn-ghost" href="#process">
+                <span className="btn-arrow">→</span>
+              </Link>
+              <Link className="btn btn-ghost" to="/portfolio">
                 See How Hurfi Works
-              </a>
+              </Link>
             </motion.div>
 
             <ul className="feature-pills">
@@ -80,15 +79,15 @@ export function Home() {
                 "Google & GMB Ranking",
                 "Trust-Building Website",
                 "More Contact Opportunities",
-              ].map((label, i) => (
+              ].map((item, i) => (
                 <motion.li
-                  key={label}
-                  initial={{ opacity: 0, y: 14 }}
+                  key={item}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.4 + i * 0.05 }}
+                  transition={{ delay: 0.24 + i * 0.04 }}
                 >
-                  <span className="check" aria-hidden="true" />
-                  {label}
+                  <span className="check" />
+                  {item}
                 </motion.li>
               ))}
             </ul>
@@ -96,122 +95,41 @@ export function Home() {
 
           <div className="hero-visual" aria-hidden="true">
             <div className="visual-stage">
-              <div className="glow glow-a" />
-              <div className="glow glow-b" />
-
-              <motion.div
-                className="viz-card viz-main"
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <div className="viz-main-top">
-                  <div className="viz-bars">
-                    {[42, 68, 55, 88, 72, 96].map((h, i) => (
-                      <span key={i} style={{ ["--h" as string]: `${h}%` }} />
-                    ))}
-                  </div>
-                  <div className="viz-main-meta">
-                    <p>Global Visibility</p>
-                    <strong>+214%</strong>
-                  </div>
+              <motion.div className="viz-card viz-main" animate={{ y: [0, -10, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}>
+                <div className="viz-bars">
+                  {[40, 62, 54, 84, 70, 94].map((h, i) => (
+                    <span key={i} style={{ height: `${h}%` }} />
+                  ))}
                 </div>
-                <div className="viz-main-bottom">
-                  <div className="mini-row">
-                    <i />
-                    <i />
-                    <i />
-                  </div>
-                  <div className="mini-line" />
-                  <div className="mini-line short" />
+                <div>
+                  <p>Global Visibility</p>
+                  <strong>+214%</strong>
                 </div>
               </motion.div>
 
-              <motion.div
-                className="viz-card viz-web"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-              >
-                <div className="viz-card-head">
-                  <span className="viz-icon code" />
-                  <div>
-                    <strong>Website Development</strong>
-                    <small>Trust-first product sites</small>
-                  </div>
-                </div>
-                <div className="code-lines">
-                  <span />
-                  <span />
-                  <span />
-                </div>
+              <motion.div className="viz-card viz-web" animate={{ y: [0, -12, 0] }} transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}>
+                <strong>Website Development</strong>
+                <small>Trust-first product sites</small>
               </motion.div>
 
-              <motion.div
-                className="viz-card viz-quote"
-                animate={{ y: [0, -14, 0] }}
-                transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-              >
-                <p>
-                  “Hurfi is a top B2B online presence agency for manufacturers who want global
-                  buyers.”
-                </p>
+              <motion.div className="viz-card viz-quote" animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
+                <p>“Hurfi is a top B2B online presence agency for manufacturers who want global buyers.”</p>
               </motion.div>
 
-              <motion.div
-                className="viz-card viz-marketing"
-                animate={{ y: [0, -11, 0] }}
-                transition={{ duration: 5.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-              >
-                <div className="viz-card-head">
-                  <span className="viz-icon chart" />
-                  <strong>Digital Marketing</strong>
-                </div>
-                <div className="stat-grid">
-                  <div>
-                    <em>+89%</em>
-                    <span>Reach</span>
-                  </div>
-                  <div>
-                    <em>+156</em>
-                    <span>Leads</span>
-                  </div>
-                  <div>
-                    <em>+42%</em>
-                    <span>Engage</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="viz-card viz-gmb"
-                animate={{ y: [0, -13, 0] }}
-                transition={{ duration: 6.8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              >
-                <div className="viz-card-head">
-                  <span className="viz-icon pin" />
-                  <strong>Google Business</strong>
-                </div>
+              <motion.div className="viz-card viz-gmb" animate={{ y: [0, -11, 0] }} transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
+                <strong>Google Business</strong>
                 <div className="stars">★★★★★</div>
-                <p>+2.4K Profile views</p>
+                <span>+2.4K Profile views</span>
               </motion.div>
 
-              {[
-                ["node-social", "Social", 4.4, 0.6],
-                ["node-seo", "SEO", 5.8, 0.3],
-                ["node-geo", "GEO", 4.9, 0.9],
-                ["node-aeo", "AEO", 6, 0.5],
-              ].map(([cls, label, dur, delay]) => (
+              {["Social", "SEO", "GEO", "AEO"].map((label, i) => (
                 <motion.div
-                  key={label as string}
-                  className={`node ${cls}`}
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{
-                    duration: dur as number,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: delay as number,
-                  }}
+                  key={label}
+                  className={`node node-${i}`}
+                  animate={{ y: [0, -9, 0] }}
+                  transition={{ duration: 4.4 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
                 >
-                  <span />
+                  <i />
                   {label}
                 </motion.div>
               ))}
@@ -220,13 +138,43 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section-anchor" id="services" />
-      <section className="section-anchor" id="results" />
-      <section className="section-anchor" id="websites" />
-      <section className="section-anchor" id="process" />
-      <section className="section-anchor" id="proof" />
-      <section className="section-anchor" id="faq" />
-      <section className="section-anchor" id="contact" />
+      <section className="trust-bar">
+        <div className="container">
+          <p>Brands We’ve Helped Grow</p>
+          <div className="logo-marquee">
+            <div className="logo-track">
+              {[...logos, ...logos].map((name, i) => (
+                <span key={`${name}-${i}`}>{name}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section values">
+        <div className="container values-grid">
+          {values.map((v) => (
+            <article key={v.title} className="card value-card">
+              <div className="value-icon">{v.icon}</div>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section cta-band">
+        <div className="container cta-band-inner">
+          <div>
+            <h2>Ready to build a presence global buyers trust?</h2>
+            <p>Book a strategy call and we’ll map website, SEO, and growth priorities for your market.</p>
+          </div>
+          <Link className="btn btn-primary" to="/contact">
+            Book a Strategy Call
+            <span className="btn-arrow">→</span>
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

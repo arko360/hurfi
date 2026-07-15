@@ -1,71 +1,53 @@
 import { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
 const links = [
   { to: "/", label: "Home", end: true },
   { to: "/portfolio", label: "Portfolio" },
-  { to: "/#services", label: "Services" },
-  { to: "/#results", label: "Results" },
-  { to: "/#websites", label: "Websites" },
-  { to: "/#process", label: "Process" },
-  { to: "/#proof", label: "Proof" },
-  { to: "/#faq", label: "FAQ" },
-  { to: "/#contact", label: "Contact" },
+  { to: "/services", label: "Services" },
+  { to: "/about", label: "About" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
 
   return (
     <header className="site-header">
-      <div className="header-inner">
-        <Link className="brand" to="/" aria-label="Hurfi home" onClick={() => setOpen(false)}>
-          <img className="brand-mark" src="/assets/icons/hurfi-mark.png" alt="" width={34} height={34} />
-          <span className="brand-text">Hurfi</span>
+      <div className="header-inner container">
+        <Link className="brand" to="/" onClick={() => setOpen(false)} aria-label="Hurfi home">
+          <img src="/assets/icons/hurfi-mark.png" alt="" width={34} height={34} />
+          <span>Hurfi</span>
         </Link>
 
-        <nav className={`nav ${open ? "is-open" : ""}`} id="primary-nav" aria-label="Primary">
-          {links.map((link) =>
-            link.to.startsWith("/#") ? (
-              <a
-                key={link.label}
-                href={link.to}
-                className={location.hash === link.to.slice(1) ? "is-active" : undefined}
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </a>
-            ) : (
-              <NavLink
-                key={link.label}
-                to={link.to}
-                end={link.end}
-                className={({ isActive }) => (isActive ? "is-active" : undefined)}
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </NavLink>
-            )
-          )}
+        <nav className={`nav ${open ? "is-open" : ""}`} aria-label="Primary">
+          {links.map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              end={l.end}
+              className={({ isActive }) => (isActive ? "is-active" : undefined)}
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </NavLink>
+          ))}
         </nav>
 
         <div className="header-actions">
-          <a className="link-quiet" href="/#services">
+          <Link className="link-quiet" to="/services" onClick={() => setOpen(false)}>
             See Our Services
-          </a>
-          <a className="btn btn-primary btn-sm" href="/#contact">
+          </Link>
+          <Link className="btn btn-primary btn-sm" to="/contact" onClick={() => setOpen(false)}>
             Book a Strategy Call
-            <span className="btn-arrow" aria-hidden="true">
-              →
-            </span>
-          </a>
+            <span className="btn-arrow">→</span>
+          </Link>
           <button
             className="nav-toggle"
             type="button"
             aria-expanded={open}
-            aria-controls="primary-nav"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((v) => !v)}
           >
