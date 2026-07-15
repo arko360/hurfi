@@ -10,7 +10,7 @@ const meta: Record<
   { title: string; subtitle: string; crumb: string }
 > = {
   seo: {
-    title: "Search Engine Optimization",
+    title: "SEO",
     subtitle: "Rankings, organic traffic, and search systems that generate qualified demand.",
     crumb: "SEO",
   },

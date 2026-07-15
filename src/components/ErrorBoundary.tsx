@@ -5,6 +5,8 @@ type Props = {
   children: ReactNode;
   /** Optional label for logs */
   name?: string;
+  /** When this changes, clear any trapped error state */
+  resetKey?: string;
 };
 
 type State = {
@@ -26,6 +28,12 @@ export class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: unknown, info: ErrorInfo) {
     const label = this.props.name ?? "App";
     console.error(`[ErrorBoundary:${label}]`, error, info.componentStack);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
+      this.setState({ hasError: false, message: "" });
+    }
   }
 
   private reset = () => {
