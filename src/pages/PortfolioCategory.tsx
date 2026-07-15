@@ -1,25 +1,14 @@
-import { lazy, Suspense, useMemo, useRef } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { useMemo, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { projects, type Project } from "../data/projects";
 import { SmartBackRow } from "../components/SmartBackNav";
 import "./Portfolio.css";
 
-const WebsiteDevShowcase = lazy(() =>
-  import("./portfolio/WebsiteDevShowcase").then((m) => ({
-    default: m.WebsiteDevShowcase,
-  }))
-);
-
 const meta: Record<
-  Project["category"],
+  Exclude<Project["category"], "website">,
   { title: string; subtitle: string; crumb: string }
 > = {
-  website: {
-    title: "Website Development",
-    subtitle: "Conversion-focused B2B websites built for trust and international growth.",
-    crumb: "Website Development",
-  },
   seo: {
     title: "Search Engine Optimization",
     subtitle: "Rankings, organic traffic, and search systems that generate qualified demand.",
@@ -32,37 +21,16 @@ const meta: Record<
   },
 };
 
-function WebsiteStage() {
-  return (
-    <div className="cat-stage website-stage" aria-hidden="true">
-      <motion.div className="float-browser main" animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
-        <div className="fb-bar"><i /><i /><i /><em>hurfi.com</em></div>
-        <div className="fb-body">
-          <motion.span className="code-line" animate={{ width: ["20%", "78%", "55%", "78%"] }} transition={{ duration: 4, repeat: Infinity }} />
-          <motion.span className="code-line dim" animate={{ width: ["40%", "62%", "40%"] }} transition={{ duration: 3.4, repeat: Infinity, delay: 0.2 }} />
-          <motion.span className="cursor-blink" />
-          <div className="device-row">
-            <span className="dev laptop" />
-            <span className="dev tablet" />
-            <span className="dev phone" />
-          </div>
-        </div>
-      </motion.div>
-      <motion.div className="float-browser mini" animate={{ y: [0, -14, 0] }} transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}>
-        <div className="fb-bar"><i /><i /><i /></div>
-        <div className="fb-body compact">
-          <span /><span className="short" />
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 function SeoStage() {
   const bars = [42, 58, 50, 72, 66, 84, 78, 94];
   return (
     <div className="cat-stage seo-stage" aria-hidden="true">
-      <motion.div className="seo-panel" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+      <motion.div
+        className="seo-panel"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
         <div className="seo-panel-head">
           <strong>Organic Growth</strong>
           <em>+195%</em>
@@ -131,7 +99,11 @@ function BrandingStage() {
           />
         ))}
       </div>
-      <motion.div className="growth-pill" animate={{ y: [0, -7, 0] }} transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}>
+      <motion.div
+        className="growth-pill"
+        animate={{ y: [0, -7, 0] }}
+        transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+      >
         Brand Growth +180%
       </motion.div>
       {["IG", "in", "X"].map((s, i) => (
@@ -148,46 +120,17 @@ function BrandingStage() {
   );
 }
 
-function CategoryStage({ category }: { category: Project["category"] }) {
-  if (category === "website") return <WebsiteStage />;
-  if (category === "seo") return <SeoStage />;
-  return <BrandingStage />;
-}
+type Props = {
+  category: "seo" | "branding";
+};
 
-export function PortfolioCategory() {
-  const { slug } = useParams();
-  const category = slug === "website" || slug === "seo" || slug === "branding" ? slug : null;
-
+export function PortfolioCategory({ category }: Props) {
+  const heroRef = useRef<HTMLElement>(null);
+  const info = meta[category];
   const filtered = useMemo(
-    () => (category ? projects.filter((p) => p.category === category) : []),
+    () => projects.filter((p) => p.category === category),
     [category]
   );
-
-  if (!category) return <Navigate to="/portfolio" replace />;
-
-  if (category === "website") {
-    return (
-      <Suspense
-        fallback={
-          <main className="wd-page wd-page-fallback">
-            <div className="container" style={{ padding: "100px 0 40px" }}>
-              <div className="wd-skeleton" style={{ height: 48, width: "40%", borderRadius: 12, marginBottom: 24 }} />
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="wd-skeleton" style={{ height: 360, borderRadius: 22 }} />
-                ))}
-              </div>
-            </div>
-          </main>
-        }
-      >
-        <WebsiteDevShowcase />
-      </Suspense>
-    );
-  }
-
-  const info = meta[category];
-  const heroRef = useRef<HTMLElement>(null);
 
   return (
     <main className="portfolio-page category-page">
@@ -211,7 +154,7 @@ export function PortfolioCategory() {
               <h1>{info.title}</h1>
               <p>{info.subtitle}</p>
             </motion.div>
-            <CategoryStage category={category} />
+            {category === "seo" ? <SeoStage /> : <BrandingStage />}
           </div>
         </div>
       </section>
@@ -242,10 +185,7 @@ export function PortfolioCategory() {
               transition={{ delay: i * 0.06 }}
               whileHover={{ y: -6 }}
             >
-              <Link
-                to={`/portfolio/${project.slug}`}
-                className="project-card-link"
-              >
+              <Link to={`/portfolio/${project.slug}`} className="project-card-link">
                 <div className="project-media" style={{ background: project.accent }}>
                   <div className="mock-browser">
                     <div className="mock-dots">

@@ -192,6 +192,22 @@ select {
   box-shadow: var(--shadow-soft);
 }
 
+/* Shared lazy-route fallback skeleton (available before page CSS loads) */
+.wd-skeleton {
+  background: linear-gradient(100deg, #e8eef8 20%, #f7faff 40%, #e8eef8 60%);
+  background-size: 200% 100%;
+  animation: wdGlobalShimmer 1.15s ease-in-out infinite;
+}
+
+@keyframes wdGlobalShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
 @media (max-width: 720px) {
   .section {
     padding: clamp(3rem, 8vw, 4rem) 0;

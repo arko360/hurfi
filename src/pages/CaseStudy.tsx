@@ -1,15 +1,26 @@
-import { useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useMemo, useRef } from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { projects } from "../data/projects";
 import { CountUp } from "../components/CountUp";
 import { SmartBackRow } from "../components/SmartBackNav";
 import "./CaseStudy.css";
 
+const RESERVED = new Set(["website", "seo", "branding"]);
+
 export function CaseStudy() {
   const { slug } = useParams();
-  const project = projects.find((p) => p.slug === slug) ?? projects[0];
   const heroRef = useRef<HTMLElement>(null);
+
+  const project = useMemo(
+    () => (slug && !RESERVED.has(slug) ? projects.find((p) => p.slug === slug) : undefined),
+    [slug]
+  );
+
+  if (!project) {
+    return <Navigate to="/portfolio" replace />;
+  }
+
   const backTo =
     project.category === "website"
       ? "/portfolio/website"

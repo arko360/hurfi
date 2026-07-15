@@ -5,10 +5,10 @@ const cols = [
   {
     title: "Services",
     links: [
-      { to: "/services", label: "Website Development" },
-      { to: "/services", label: "SEO" },
+      { to: "/portfolio/website", label: "Website Development" },
+      { to: "/portfolio/seo", label: "SEO" },
       { to: "/services", label: "Digital Marketing" },
-      { to: "/services", label: "Branding" },
+      { to: "/portfolio/branding", label: "Branding" },
     ],
   },
   {

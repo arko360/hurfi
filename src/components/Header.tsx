@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Header.css";
 
@@ -20,6 +20,10 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const portfolioActive = location.pathname.startsWith("/portfolio");
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
 
   const closeNav = () => setOpen(false);
 

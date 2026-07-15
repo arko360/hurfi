@@ -50,7 +50,6 @@ const ScrollPreview = memo(function ScrollPreview({
           sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw"
           decoding="async"
           loading={priority ? "eager" : "lazy"}
-          // @ts-expect-error fetchPriority
           fetchPriority={priority ? "high" : "low"}
           onLoad={() => setReady(true)}
           className={ready ? "is-visible" : ""}
