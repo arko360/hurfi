@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Contact — Hurfi</title>
+    <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <div class="site-wrap">
+      <div id="site-header"></div>
+      <main>
+        <section class="page-hero">
+          <div class="container">
+            <a class="pf-back-btn" href="index.html" style="margin-bottom:18px">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Back to Home</span>
+            </a>
+            <h1>Contact</h1>
+            <p>Book a strategy call — we’ll map website, SEO, and growth priorities for your market.</p>
+          </div>
+        </section>
+        <section class="section">
+          <div class="container" style="max-width:36rem">
+            <form class="card" style="padding:28px;display:grid;gap:14px" onsubmit="event.preventDefault(); alert('Thanks — we will contact you shortly.'); this.reset();">
+              <label>Name<br /><input name="name" required style="width:100%;margin-top:6px;padding:12px;border:1px solid var(--line);border-radius:12px" /></label>
+              <label>Email<br /><input type="email" name="email" required style="width:100%;margin-top:6px;padding:12px;border:1px solid var(--line);border-radius:12px" /></label>
+              <label>Message<br /><textarea name="message" rows="5" required style="width:100%;margin-top:6px;padding:12px;border:1px solid var(--line);border-radius:12px"></textarea></label>
+              <button class="btn btn-primary" type="submit">Send Message<span class="btn-arrow">→</span></button>
+            </form>
+            <p style="margin-top:18px;color:var(--muted)">Or email <a href="mailto:hello@hurfi.com" style="color:var(--blue);font-weight:700">hello@hurfi.com</a></p>
+          </div>
+        </section>
+      </main>
+      <div id="site-footer"></div>
+    </div>
+    <script src="js/site.js"></script>
+  </body>
+</html>

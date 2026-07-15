@@ -1,35 +1,24 @@
 # Hurfi
 
-Vite + React site for [hurfi.com](https://hurfi.com).
+Static **HTML / CSS / JavaScript** website for [hurfi.com](https://hurfi.com).
 
-## Develop
+**No Node.js. No npm. No React. No build step.**
 
-```powershell
-npm install
-npm run dev
-```
+## Local preview
 
-`predev` / `prebuild` only generate **missing** portfolio screenshots (Playwright → `public/portfolio-preview/`). Visitors never trigger captures.
+Open `index.html` in your browser.
 
-Refresh all Ultra HD previews:
+## Edit
 
-```powershell
-npm run update-previews
-```
+| What | Where |
+|------|--------|
+| Pages | `*.html` |
+| Styles | `css/site.css` |
+| Nav + website cards | `js/site.js` |
+| Images | `assets/`, `portfolio-preview/` |
 
-## Build & deploy
+## Deploy (Hostinger)
 
-```powershell
-npm run build
-git add .
-git commit -m "Update site"
-git push origin main
-```
+Upload site files to `public_html`, **or** push to `main` (GitHub Actions deploys the static files — still no Node build).
 
-Pushing to `main` runs GitHub Actions → Hostinger.
-
-## Sync deploy secrets
-
-```powershell
-powershell -File .\scripts\sync-github-secrets.ps1
-```
+See `DEPLOYMENT.md` for SSH secrets.

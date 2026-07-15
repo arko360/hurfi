@@ -12,12 +12,10 @@ Automated deploys run on every push to `main` via GitHub Actions → SSH → Hos
 | Web root (deploy directory) | `/home/u765323536/domains/hurfi.com/public_html` |
 | Git mirror | `/home/u765323536/domains/hurfi.com/repo` |
 | Releases / rollback | `/home/u765323536/domains/hurfi.com/releases` |
-| Current local repo | Placeholder (`README` + `.gitignore` only) — **no app framework yet** |
-| Server stack | PHP 8.3 + Composer; Git available; Node binaries under `/opt/alt/alt-nodejs*` (not on default PATH) |
+| Current local repo | **Static HTML / CSS / JS** (no Node, no npm build) |
+| Server stack | PHP 8.3 + Apache; Git available |
 
-**Strategy:** detect framework on GitHub Actions → build there → rsync artifacts into `public_html`. This avoids fragile on-server Node builds on shared hosting.
-
-Supported auto-detect: Next.js, Vite, Astro, CRA, Angular, Nuxt, generic Node, Laravel, static HTML.
+**Strategy:** GitHub Actions packages the repo HTML files → SSH → `public_html`. No Node install or build on CI or the server.
 
 ---
 
@@ -116,27 +114,21 @@ A hosting password was shared in chat while setting this up. After confirming ke
 ## 4. How deployment works
 
 1. Push to `main` (or run **Actions → Deploy to Hostinger → Run workflow**).
-2. `scripts/detect-and-build.sh` detects the framework and builds into `deploy_artifact/`.
-3. If the repo is still empty/placeholder, the job **succeeds but skips publish** (live `default.php` site is left alone).
-4. Otherwise CI rsyncs artifacts over SSH and runs `scripts/remote-deploy.sh` on the server.
-5. The remote script:
+2. `scripts/detect-and-build.sh` copies the static HTML site into `deploy_artifact/` (no Node / no npm).
+3. CI uploads artifacts over SSH and runs `scripts/remote-deploy.sh` on the server.
+4. The remote script:
    - Snapshots current `public_html` into `releases/`
    - Updates the git mirror
    - Publishes new files into `public_html`
    - Prunes old releases (keeps 5)
 
-### Framework → publish behavior
+### Publish behavior
 
-| Detection | Build | Published to `public_html` |
-|-----------|-------|----------------------------|
-| Vite / Astro | `npm run build` | `dist/` |
-| CRA | `npm run build` | `build/` |
-| Next.js | `npm run build` | `out/` (static export) or standalone Node output |
-| Static HTML | none | `index.html` / `public/` |
-| Laravel | `composer install` (CI) | contents of `public/` |
-| Generic Node | build if present | `dist`/`build`/`public` or app files |
+| Type | Build | Published to `public_html` |
+|------|-------|----------------------------|
+| Static HTML / CSS / JS | none | `*.html`, `css/`, `js/`, `assets/`, `portfolio-preview/`, `.htaccess` |
 
-For **Next.js on this Hostinger shared plan**, prefer static export (`output: 'export'`) unless you create a Node.js app in hPanel.
+You can also upload those same files manually via File Manager — no build required.
 
 ---
 

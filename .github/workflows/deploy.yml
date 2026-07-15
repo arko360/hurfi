@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   detect-build-deploy:
-    name: Detect → Build → Deploy
+    name: Package → Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -22,21 +22,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Detect framework and build artifacts
+      - name: Package static HTML site
         id: build
         run: |
           set -euo pipefail
           chmod +x scripts/detect-and-build.sh
           scripts/detect-and-build.sh
 
-      - name: Summarize build
+      - name: Summarize package
         run: |
-          echo "### Deployment build" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Deployment package" >> "$GITHUB_STEP_SUMMARY"
           echo "- Framework: \`${{ steps.build.outputs.framework }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Artifact mode: \`${{ steps.build.outputs.artifact_mode }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Skip deploy: \`${{ steps.build.outputs.skip_deploy }}\`" >> "$GITHUB_STEP_SUMMARY"
@@ -68,7 +63,6 @@ jobs:
           fi
           echo "All required secrets are present."
 
-      # Write the deploy key to a file and validate it (avoids agent + IdentitiesOnly issues)
       - name: Prepare SSH key
         if: steps.build.outputs.skip_deploy != 'true'
         env:
@@ -79,13 +73,11 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          # Strip Windows CRLF — common cause of broken keys in GitHub Secrets
           printf '%s\n' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
           if ! ssh-keygen -y -f ~/.ssh/deploy_key >/tmp/deploy_key.pub 2>/tmp/deploy_key.err; then
             echo "::error::SSH_PRIVATE_KEY is invalid (libcrypto / parse error)."
-            echo "::error::Run locally: powershell -File scripts/sync-github-secrets.ps1"
             cat /tmp/deploy_key.err || true
             exit 1
           fi
@@ -94,17 +86,12 @@ jobs:
           EXPECTED_FP="SHA256:qPPsmNfETzCQmqajLA3MhAb1VQQr7avnpE3xSc9/SB4"
 
           echo "Deploy key fingerprint: $(ssh-keygen -lf ~/.ssh/deploy_key)"
-          echo "Expected fingerprint:   256 ${EXPECTED_FP} github-actions-deploy-hurfi (ED25519)"
-
           if [ "$ACTUAL_FP" != "$EXPECTED_FP" ]; then
             echo "::error::SSH_PRIVATE_KEY fingerprint mismatch."
             echo "::error::Actual:   $ACTUAL_FP"
             echo "::error::Expected: $EXPECTED_FP"
-            echo "::error::Fix permanently: powershell -File scripts/sync-github-secrets.ps1"
             exit 1
           fi
-
-          echo "Fingerprint OK — this key matches the Hostinger authorized_keys entry."
 
           printf '%s\n' "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
@@ -142,8 +129,6 @@ jobs:
           echo "Testing SSH connectivity as ${SSH_USER}@${SSH_HOST}:${SSH_PORT} ..."
           if ! remote 'echo SSH_OK; hostname; pwd'; then
             echo "::error::SSH auth failed. Server rejected this private key."
-            echo "::error::Fix: update GitHub Secret SSH_PRIVATE_KEY with the FULL contents of .deploy-keys/github_actions_deploy"
-            echo "::error::And ensure the matching .pub is in server ~/.ssh/authorized_keys (already set if you used our setup)."
             exit 255
           fi
 
@@ -173,13 +158,3 @@ jobs:
           echo "- Target: \`$DEPLOY_PATH\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Mode: \`$MODE\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- SHA: \`$SHORT_SHA\`" >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Empty project notice
-        if: steps.build.outputs.skip_deploy == 'true'
-        run: |
-          echo "::warning::Repository has no deployable app yet (only placeholder files). Live site was left unchanged."
-          echo "Add your website source (e.g. Vite/React/Next/Astro/HTML), push to main, and this workflow will deploy automatically."
-          echo "### Skipped publish" >> "$GITHUB_STEP_SUMMARY"
-          echo "No application source detected. Server webroot not modified." >> "$GITHUB_STEP_SUMMARY"
-          echo "### Still required before first real deploy" >> "$GITHUB_STEP_SUMMARY"
-          echo "Add GitHub Actions secrets documented in DEPLOYMENT.md" >> "$GITHUB_STEP_SUMMARY"

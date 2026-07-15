@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Website Development — Hurfi Portfolio</title>
+    <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <div class="site-wrap">
+      <div id="site-header"></div>
+      <main class="wd-page">
+        <div class="wd-bg" aria-hidden="true"></div>
+        <header class="wd-header">
+          <div class="container wd-header-top-wrap">
+            <div class="sbn-row">
+              <div class="sbn-slot">
+                <a class="pf-back-btn" href="portfolio.html">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Back to Portfolio</span>
+                </a>
+              </div>
+              <div class="sbn-end"><span class="wd-top-label">Website Development</span></div>
+            </div>
+          </div>
+          <div class="container wd-header-inner">
+            <div class="wd-hero-copy">
+              <p class="wd-eyebrow">Hurfi Portfolio</p>
+              <h1>Website Development</h1>
+              <p class="wd-lead">Explore our real-world web development projects delivered for businesses across multiple industries.</p>
+              <div class="wd-hero-stats">
+                <div class="wd-hero-stat"><strong>5+</strong><span>Live Websites</span></div>
+                <div class="wd-hero-stat"><strong>100%</strong><span>Responsive</span></div>
+                <div class="wd-hero-stat"><strong>Modern</strong><span>UI</span></div>
+                <div class="wd-hero-stat"><strong>Fast</strong><span>Performance</span></div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="container wd-grid" id="website-grid"></section>
+
+        <section class="section wd-cta">
+          <div class="container wd-cta-inner">
+            <div>
+              <h2>Need a website that looks premium and converts?</h2>
+              <p>Let’s design and build a high-performing site for your brand — from first sketch to live launch.</p>
+            </div>
+            <a class="btn btn-primary" href="contact.html">Start Your Project<span class="btn-arrow">→</span></a>
+          </div>
+        </section>
+      </main>
+      <div id="site-footer"></div>
+    </div>
+    <script src="js/site.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () { window.renderWebsiteGrid("website-grid"); });</script>
+  </body>
+</html>
