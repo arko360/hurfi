@@ -1,6 +1,7 @@
 .hero {
   position: relative;
   overflow: hidden;
+  width: 100%;
   background:
     radial-gradient(ellipse 70% 55% at 12% 0%, #dcebff 0%, transparent 55%),
     linear-gradient(180deg, #eef5ff 0%, #f8fbff 50%, #ffffff 100%);
@@ -22,8 +23,8 @@
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 36px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: clamp(1.25rem, 3vw, 2.25rem);
   align-items: center;
 }
 
@@ -293,8 +294,8 @@
 
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: clamp(0.9rem, 2vw, 1.15rem);
 }
 
 .value-card {
@@ -363,20 +364,12 @@
 }
 
 @media (max-width: 960px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
-
   .hero-visual {
     min-height: 420px;
   }
 
   .visual-stage {
     height: 420px;
-  }
-
-  .values-grid {
-    grid-template-columns: 1fr;
   }
 
   .cta-band-inner {

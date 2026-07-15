@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
+import { SmartBackRow } from "../components/SmartBackNav";
 import "./Services.css";
 
 const services = [
@@ -11,10 +13,13 @@ const services = [
 ];
 
 export function Services() {
+  const heroRef = useRef<HTMLElement>(null);
+
   return (
     <main>
-      <section className="page-hero">
+      <section className="page-hero" ref={heroRef}>
         <div className="container">
+          <SmartBackRow to="/" label="Back to Home" heroRef={heroRef} />
           <p className="crumb">Home / Services</p>
           <h1>Services</h1>
           <p>Everything required to build, find, and convert international B2B demand.</p>

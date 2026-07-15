@@ -1,9 +1,11 @@
 import type { FormEvent } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { SmartBackRow } from "../components/SmartBackNav";
 import "./Contact.css";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -12,8 +14,9 @@ export function Contact() {
 
   return (
     <main>
-      <section className="page-hero">
+      <section className="page-hero" ref={heroRef}>
         <div className="container">
+          <SmartBackRow to="/" label="Back to Home" heroRef={heroRef} />
           <p className="crumb">Home / Contact</p>
           <h1>Contact</h1>
           <p>Tell us about your market, offer, and growth goals — we’ll reply with next steps.</p>

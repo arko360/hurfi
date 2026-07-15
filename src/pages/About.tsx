@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { CountUp } from "../components/CountUp";
+import { SmartBackRow } from "../components/SmartBackNav";
 import "./About.css";
 
 const stats = [
@@ -17,10 +19,13 @@ const values = [
 ];
 
 export function About() {
+  const heroRef = useRef<HTMLElement>(null);
+
   return (
     <main>
-      <section className="page-hero">
+      <section className="page-hero" ref={heroRef}>
         <div className="container">
+          <SmartBackRow to="/" label="Back to Home" heroRef={heroRef} />
           <p className="crumb">Home / About</p>
           <h1>About Hurfi</h1>
           <p>We help B2B brands become the trusted option in international markets.</p>

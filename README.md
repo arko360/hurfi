@@ -9,6 +9,14 @@ npm install
 npm run dev
 ```
 
+`predev` / `prebuild` only generate **missing** portfolio screenshots (Playwright → `public/portfolio-preview/`). Visitors never trigger captures.
+
+Refresh all Ultra HD previews:
+
+```powershell
+npm run update-previews
+```
+
 ## Build & deploy
 
 ```powershell

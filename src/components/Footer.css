@@ -3,12 +3,14 @@
   color: #c9d6ea;
   padding: 72px 0 24px;
   margin-top: 24px;
+  width: 100%;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr repeat(4, 1fr);
-  gap: 28px;
+  grid-template-columns: minmax(12rem, 1.4fr) repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+  width: 100%;
 }
 
 .footer-logo {

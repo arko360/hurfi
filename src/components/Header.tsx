@@ -1,46 +1,79 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Header.css";
 
 const links = [
   { to: "/", label: "Home", end: true },
-  { to: "/portfolio", label: "Portfolio" },
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/pricing", label: "Pricing" },
   { to: "/contact", label: "Contact" },
 ];
 
+const portfolioItems = [
+  { to: "/portfolio/website", label: "Website Development", desc: "High-converting B2B sites" },
+  { to: "/portfolio/seo", label: "Search Engine Optimization", desc: "Search visibility & rankings" },
+  { to: "/portfolio/branding", label: "Branding & Growth", desc: "Identity systems that scale" },
+];
+
 export function Header() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const portfolioActive = location.pathname.startsWith("/portfolio");
+
+  const closeNav = () => setOpen(false);
 
   return (
     <header className="site-header">
       <div className="header-inner container">
-        <Link className="brand" to="/" onClick={() => setOpen(false)} aria-label="Hurfi home">
+        <Link className="brand" to="/" onClick={closeNav} aria-label="Hurfi home">
           <img src="/assets/icons/hurfi-mark.png" alt="" width={34} height={34} />
           <span>Hurfi</span>
         </Link>
 
         <nav className={`nav ${open ? "is-open" : ""}`} aria-label="Primary">
-          {links.map((l) => (
+          <NavLink to="/" end className={({ isActive }) => (isActive ? "is-active" : undefined)} onClick={closeNav}>
+            Home
+          </NavLink>
+
+          <div className={`nav-dropdown ${portfolioActive ? "is-active" : ""}`}>
             <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.end}
-              className={({ isActive }) => (isActive ? "is-active" : undefined)}
-              onClick={() => setOpen(false)}
+              to="/portfolio"
+              className={({ isActive }) => `nav-dropdown-trigger ${isActive ? "is-active" : ""}`}
+              onClick={closeNav}
             >
-              {l.label}
+              Portfolio
+              <span className="caret" aria-hidden="true" />
             </NavLink>
-          ))}
+            <div className="nav-dropdown-menu" role="menu" aria-label="Portfolio categories">
+              {portfolioItems.map((item) => (
+                <Link key={item.to} to={item.to} role="menuitem" onClick={closeNav}>
+                  <strong>{item.label}</strong>
+                  <span>{item.desc}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {links
+            .filter((l) => l.to !== "/")
+            .map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                className={({ isActive }) => (isActive ? "is-active" : undefined)}
+                onClick={closeNav}
+              >
+                {l.label}
+              </NavLink>
+            ))}
         </nav>
 
         <div className="header-actions">
-          <Link className="link-quiet" to="/services" onClick={() => setOpen(false)}>
+          <Link className="link-quiet" to="/services" onClick={closeNav}>
             See Our Services
           </Link>
-          <Link className="btn btn-primary btn-sm" to="/contact" onClick={() => setOpen(false)}>
+          <Link className="btn btn-primary btn-sm" to="/contact" onClick={closeNav}>
             Book a Strategy Call
             <span className="btn-arrow">→</span>
           </Link>

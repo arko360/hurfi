@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { SmartBackRow } from "../components/SmartBackNav";
 import "./Pricing.css";
 
 const plans = [
@@ -42,11 +43,13 @@ const plans = [
 
 export function Pricing() {
   const [yearly, setYearly] = useState(true);
+  const heroRef = useRef<HTMLElement>(null);
 
   return (
     <main>
-      <section className="page-hero">
+      <section className="page-hero" ref={heroRef}>
         <div className="container">
+          <SmartBackRow to="/" label="Back to Home" heroRef={heroRef} />
           <p className="crumb">Home / Pricing</p>
           <h1>Pricing</h1>
           <p>Simple packages designed around outcomes — not endless retainers without direction.</p>
