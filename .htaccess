@@ -1,9 +1,19 @@
 RewriteEngine On
 RewriteBase /
 
-# Plain multi-page HTML site (no Node / no SPA build required)
+# Pure static multi-page HTML site (no Node / no SPA)
+
+Options -Indexes
+ServerSignature Off
 
 ErrorDocument 404 /404.html
+
+# Block sensitive / non-public paths if ever present in web root
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.env
+RedirectMatch 404 /\.deploy-keys
+RedirectMatch 404 /node_modules
+RedirectMatch 404 /deploy_artifact
 
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
@@ -11,6 +21,7 @@ ErrorDocument 404 /404.html
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
   Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self' mailto:; frame-ancestors 'self'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; upgrade-insecure-requests"
 
   <FilesMatch "\.(html)$">

@@ -1,26 +1,37 @@
 # Hurfi
 
-Static **HTML / CSS / JavaScript** website for [hurfi.com](https://hurfi.com).
+Pure static **HTML / CSS / JavaScript** website for [hurfi.com](https://hurfi.com).
 
-**No Node.js. No npm. No React. No build step.**
+**No Node.js. No npm. No Python. No localhost. No build step. No React.**
 
-Header, footer, navigation, and page content all live in the HTML files. JavaScript only adds interactions (menu, scroll effects, form handoff).
+Every page already includes its full header, footer, and content in the HTML file.
 
-## Local preview
+## Preview
 
-Open `index.html` in your browser.
+1. Open `T:\hurfi` in File Explorer.
+2. Double-click `index.html`.
+3. Navigate with on-page links (all point to other `.html` files).
 
 ## Edit
 
 | What | Where |
 |------|--------|
-| Pages (including header & footer) | `*.html` |
+| Pages (header, footer, content) | `*.html` |
 | Styles | `css/site.css` |
 | Interactions only | `js/site.js` |
 | Images | `assets/`, `portfolio-preview/` |
 
-## Deploy (Hostinger)
+## Upload to cPanel
 
-Upload site files to `public_html`, **or** push to `main` (GitHub Actions deploys the static files — still no Node build).
+Upload into `public_html` (keep folders):
 
-See `DEPLOYMENT.md` for SSH secrets.
+- all `*.html` files
+- `css/`
+- `js/`
+- `assets/`
+- `portfolio-preview/`
+- `.htaccess`
+- `robots.txt`
+- `sitemap.xml`
+
+Do **not** upload `node_modules` or development tools.

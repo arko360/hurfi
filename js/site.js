@@ -13,8 +13,37 @@
     initValuesSection();
     initMagneticButtons(document);
     initStrategyForm();
+    initSectionReveal();
     const grid = document.getElementById("website-grid");
     if (grid) initWebsiteShowcase(grid);
+  }
+
+  function initSectionReveal() {
+    if (prefersReducedMotion()) return;
+    const nodes = Array.from(
+      document.querySelectorAll(
+        ".svc-card, .pricing-card, .project-card, .wd-card, .case-block, .case-visual, .process-card, .about-points article, .pf-card"
+      )
+    );
+    if (!nodes.length) return;
+    nodes.forEach((el) => el.classList.add("reveal-ready"));
+
+    if (!("IntersectionObserver" in window)) {
+      nodes.forEach((el) => el.classList.add("reveal-in"));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("reveal-in");
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+    );
+    nodes.forEach((el) => io.observe(el));
   }
 
   function initStrategyForm() {
@@ -151,7 +180,7 @@
 
       let node = el;
       for (let i = 0; i < 8 && node; i++) {
-        if (node.matches && node.matches(".cta-band-inner, .site-footer, .cta-band, .pf-cta-band, .wd-cta, [data-tone='dark']")) {
+        if (node.matches && node.matches(".cta-band-inner, .site-footer, .cta-band, [data-tone='dark']")) {
           return "dark";
         }
         if (node.matches && node.matches(".hero, .values, .trust-bar, [data-tone='blue'], .page-hero, .portfolio-viewport, .cat-hero")) {

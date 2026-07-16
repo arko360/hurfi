@@ -17,6 +17,8 @@ Automated deploys run on every push to `main` via GitHub Actions → SSH → Hos
 
 **Strategy:** GitHub Actions packages the repo HTML files → SSH → `public_html`. No Node install or build on CI or the server.
 
+You can also open any `.html` file directly (File Manager / double-click). No localhost or Live Server is required.
+
 ---
 
 ## 1. GitHub Secrets (required)
