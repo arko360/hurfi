@@ -34,4 +34,19 @@ Upload into `public_html` (keep folders):
 - `robots.txt`
 - `sitemap.xml`
 
-Do **not** upload `node_modules` or development tools.
+**Do not upload:**
+
+- `node_modules/`
+- `.git/`
+- `.github/`
+- `.deploy-keys/`
+- `scripts/`
+- `DEPLOYMENT.md` (optional docs only)
+- any `_*.ps1` / temp tooling files
+
+## Production checklist
+
+- Pretty URLs work via `.htaccess` (`/portfolio` → `portfolio.html`)
+- `404.html` is noindex
+- Security headers ship from `.htaccess`
+- Contact form opens a prefilled `mailto:hello@hurfi.com` (no server backend)

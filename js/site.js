@@ -11,6 +11,7 @@
     initHeaderScroll();
     initHeroExperience();
     initValuesSection();
+    initBrandsShowcase();
     initMagneticButtons(document);
     initStrategyForm();
     initSectionReveal();
@@ -107,6 +108,32 @@
     initSoftParallax(cta, ".cta-orb, .cta-btn-glow, .cta-flow, .cta-dot", 4);
   }
 
+  function initBrandsShowcase() {
+    const brands = document.querySelector(".brands-showcase");
+    if (!brands) return;
+
+    if (prefersReducedMotion()) {
+      brands.classList.add("is-inview");
+      return;
+    }
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-inview");
+            io.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+      );
+      io.observe(brands);
+    } else {
+      brands.classList.add("is-inview");
+    }
+  }
+
   function initSoftParallax(root, selector, strength) {
     if (!root) return;
     const layers = Array.from(root.querySelectorAll(selector));
@@ -183,7 +210,7 @@
         if (node.matches && node.matches(".cta-band-inner, .site-footer, .cta-band, [data-tone='dark']")) {
           return "dark";
         }
-        if (node.matches && node.matches(".hero, .values, .trust-bar, [data-tone='blue'], .page-hero, .portfolio-viewport, .cat-hero")) {
+        if (node.matches && node.matches(".hero, .values, .brands-showcase, .trust-bar, [data-tone='blue'], .page-hero, .portfolio-viewport, .cat-hero")) {
           return "blue";
         }
         node = node.parentElement;
