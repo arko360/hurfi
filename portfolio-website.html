@@ -4,57 +4,248 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Website Development — Hurfi Portfolio</title>
+    <meta name="description" content="Real-world website development projects delivered by Hurfi for businesses across industries." />
+    <link rel="canonical" href="https://hurfi.com/portfolio-website" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Website Development — Hurfi Portfolio" />
+    <meta property="og:description" content="Real-world website development projects delivered by Hurfi for businesses across industries." />
+    <meta property="og:url" content="https://hurfi.com/portfolio-website" />
+    <meta property="og:image" content="https://hurfi.com/assets/images/hurfi-logo-color.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Website Development — Hurfi Portfolio" />
+    <meta name="twitter:description" content="Real-world website development projects delivered by Hurfi for businesses across industries." />
+
     <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body>
     <div class="site-wrap">
-      <div id="site-header"></div>
-      <main class="wd-page">
+      <div id="site-header">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header" data-tone="light">
+  <div class="header-shell container">
+    <div class="header-glass">
+      <a class="brand" href="index.html" aria-label="Hurfi home">
+        <img src="assets/icons/hurfi-mark.png" alt="" width="34" height="34" />
+        <span>Hurfi</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown is-active" id="portfolio-dropdown">
+          <a href="portfolio.html" class="nav-dropdown-trigger is-active" aria-haspopup="menu" aria-expanded="false">
+            Portfolio
+            <span class="caret" aria-hidden="true"></span>
+          </a>
+          <div class="nav-dropdown-menu" role="menu" aria-label="Portfolio categories">
+            <a href="portfolio-website.html" role="menuitem">
+              <strong>Website Development</strong>
+              <span>High-converting B2B sites</span>
+            </a>
+            <a href="portfolio-seo.html" role="menuitem">
+              <strong>SEO</strong>
+              <span>Search visibility &amp; rankings</span>
+            </a>
+            <a href="portfolio-branding.html" role="menuitem">
+              <strong>Branding &amp; Growth</strong>
+              <span>Identity systems that scale</span>
+            </a>
+          </div>
+        </div>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <div class="nav-mobile-ctas">
+          <a class="btn btn-ghost btn-sm" href="services.html">See Our Services</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book a Strategy Call</a>
+        </div>
+      </nav>
+      <div class="header-end">
+        <div class="header-actions">
+          <a class="btn btn-ghost btn-sm header-cta" href="services.html">See Our Services</a>
+          <a class="btn btn-primary btn-sm header-cta magnetic cta-shine" href="contact.html">Book a Strategy Call</a>
+        </div>
+        <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+      </div>
+      <main id="main-content" class="wd-page portfolio-page">
         <div class="wd-bg" aria-hidden="true"></div>
-        <header class="wd-header">
-          <div class="container wd-header-top-wrap">
-            <div class="sbn-row">
-              <div class="sbn-slot">
-                <a class="pf-back-btn" href="portfolio.html">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Back to Portfolio</span>
-                </a>
+        <section class="page-hero cat-hero wd-page-hero">
+          <div class="container">
+            <p class="crumb"><a href="portfolio.html">Portfolio</a> / Website Development</p>
+            <div class="cat-hero-grid">
+              <div>
+                <p class="wd-eyebrow">Hurfi Portfolio</p>
+                <h1>Website Development</h1>
+                <p class="wd-lead">Explore our real-world web development projects delivered for businesses across multiple industries.</p>
+                <div class="wd-hero-stats">
+                  <div class="wd-hero-stat"><strong>5+</strong><span>Live Websites</span></div>
+                  <div class="wd-hero-stat"><strong>100%</strong><span>Responsive</span></div>
+                  <div class="wd-hero-stat"><strong>Modern</strong><span>UI</span></div>
+                  <div class="wd-hero-stat"><strong>Fast</strong><span>Performance</span></div>
+                </div>
               </div>
-              <div class="sbn-end"><span class="wd-top-label">Website Development</span></div>
+              <div class="cat-stage web-stage" aria-hidden="true">
+                <div class="float-browser main">
+                  <div class="fb-bar"><i></i><i></i><i></i><em>ghorsajan.com</em></div>
+                  <img class="fb-shot" src="portfolio-preview/slides/ghorsajan/01.jpg" alt="" width="720" height="540" loading="lazy" decoding="async" />
+                </div>
+                <div class="float-browser mini">
+                  <div class="fb-bar"><i></i><i></i><i></i></div>
+                  <img class="fb-shot" src="portfolio-preview/slides/zaiax/01.jpg" alt="" width="360" height="270" loading="lazy" decoding="async" />
+                </div>
+              </div>
             </div>
           </div>
-          <div class="container wd-header-inner">
-            <div class="wd-hero-copy">
-              <p class="wd-eyebrow">Hurfi Portfolio</p>
-              <h1>Website Development</h1>
-              <p class="wd-lead">Explore our real-world web development projects delivered for businesses across multiple industries.</p>
-              <div class="wd-hero-stats">
-                <div class="wd-hero-stat"><strong>5+</strong><span>Live Websites</span></div>
-                <div class="wd-hero-stat"><strong>100%</strong><span>Responsive</span></div>
-                <div class="wd-hero-stat"><strong>Modern</strong><span>UI</span></div>
-                <div class="wd-hero-stat"><strong>Fast</strong><span>Performance</span></div>
+        </section>
+
+        <section class="section section-tight">
+          <div class="container">
+            <h2 class="projects-label">Selected Work</h2>
+            <div class="wd-grid" id="website-grid">
+            <article class="wd-card">
+              <a class="wd-showcase" href="case-ghorsajan.html" aria-label="Ghorsajan case study">
+                <div class="wd-static-preview">
+                  <img src="portfolio-preview/slides/ghorsajan/01.jpg" alt="Ghorsajan website preview" width="720" height="960" loading="eager" decoding="async" fetchpriority="high" />
+                </div>
+                <div class="wd-scroll-layer" aria-hidden="true">
+                  <img data-src="portfolio-preview/slides/ghorsajan/full.jpg" alt="" width="720" height="2400" decoding="async" />
+                </div>
+              </a>
+              <div class="wd-card-body">
+                <h2>Ghorsajan</h2>
+                <a class="btn btn-primary wd-btn" href="https://ghorsajan.com/" target="_blank" rel="noopener noreferrer">View Website<span class="btn-arrow">→</span></a>
               </div>
-            </div>
+            </article>
+            <article class="wd-card">
+              <a class="wd-showcase" href="case-real-sign-bd.html" aria-label="Real Sign BD case study">
+                <div class="wd-static-preview">
+                  <img src="portfolio-preview/slides/real-sign-bd/01.jpg" alt="Real Sign BD website preview" width="720" height="960" loading="eager" decoding="async" />
+                </div>
+                <div class="wd-scroll-layer" aria-hidden="true">
+                  <img data-src="portfolio-preview/slides/real-sign-bd/full.jpg" alt="" width="720" height="2400" decoding="async" />
+                </div>
+              </a>
+              <div class="wd-card-body">
+                <h2>Real Sign BD</h2>
+                <a class="btn btn-primary wd-btn" href="https://realsignbd.com/" target="_blank" rel="noopener noreferrer">View Website<span class="btn-arrow">→</span></a>
+              </div>
+            </article>
+            <article class="wd-card">
+              <a class="wd-showcase" href="case-gully-apparel.html" aria-label="Gully Apparel case study">
+                <div class="wd-static-preview">
+                  <img src="portfolio-preview/slides/gully-apparel/01.jpg" alt="Gully Apparel website preview" width="720" height="960" loading="eager" decoding="async" />
+                </div>
+                <div class="wd-scroll-layer" aria-hidden="true">
+                  <img data-src="portfolio-preview/slides/gully-apparel/full.jpg" alt="" width="720" height="2400" decoding="async" />
+                </div>
+              </a>
+              <div class="wd-card-body">
+                <h2>Gully Apparel</h2>
+                <a class="btn btn-primary wd-btn" href="https://gullyapparel.store/" target="_blank" rel="noopener noreferrer">View Website<span class="btn-arrow">→</span></a>
+              </div>
+            </article>
+            <article class="wd-card">
+              <a class="wd-showcase" href="case-gozero-print.html" aria-label="Gozero Print case study">
+                <div class="wd-static-preview">
+                  <img src="portfolio-preview/slides/gozero-print/01.jpg" alt="Gozero Print website preview" width="720" height="960" loading="eager" decoding="async" />
+                </div>
+                <div class="wd-scroll-layer" aria-hidden="true">
+                  <img data-src="portfolio-preview/slides/gozero-print/full.jpg" alt="" width="720" height="2400" decoding="async" />
+                </div>
+              </a>
+              <div class="wd-card-body">
+                <h2>Gozero Print</h2>
+                <a class="btn btn-primary wd-btn" href="https://gozeroprint.com/" target="_blank" rel="noopener noreferrer">View Website<span class="btn-arrow">→</span></a>
+              </div>
+            </article>
+            <article class="wd-card">
+              <a class="wd-showcase" href="case-zaiax.html" aria-label="Zaiax case study">
+                <div class="wd-static-preview">
+                  <img src="portfolio-preview/slides/zaiax/01.jpg" alt="Zaiax website preview" width="720" height="960" loading="lazy" decoding="async" />
+                </div>
+                <div class="wd-scroll-layer" aria-hidden="true">
+                  <img data-src="portfolio-preview/slides/zaiax/full.jpg" alt="" width="720" height="2400" decoding="async" />
+                </div>
+              </a>
+              <div class="wd-card-body">
+                <h2>Zaiax</h2>
+                <a class="btn btn-primary wd-btn" href="https://zaiax.com/" target="_blank" rel="noopener noreferrer">View Website<span class="btn-arrow">→</span></a>
+              </div>
+            </article>
           </div>
-        </header>
+        </div>
+        </section>
 
-        <section class="container wd-grid" id="website-grid"></section>
-
-        <section class="section wd-cta">
-          <div class="container wd-cta-inner">
-            <div>
-              <h2>Need a website that looks premium and converts?</h2>
-              <p>Let’s design and build a high-performing site for your brand — from first sketch to live launch.</p>
+        <section class="section cta-band">
+          <div class="container">
+            <div class="cta-band-inner" data-cta>
+              <div class="cta-copy">
+                <div>
+                  <h2>Need a website that looks premium and converts?</h2>
+                  <p>Let’s design and build a high-performing site for your brand — from first sketch to live launch.</p>
+                </div>
+              </div>
+              <a class="btn btn-primary magnetic cta-shine" href="contact.html">Start Your Project<span class="btn-arrow">→</span></a>
             </div>
-            <a class="btn btn-primary" href="contact.html">Start Your Project<span class="btn-arrow">→</span></a>
           </div>
         </section>
       </main>
-      <div id="site-footer"></div>
+      <footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">
+        <img src="assets/icons/hurfi-mark.png" alt="" width="32" height="32" />
+        <span>Hurfi</span>
+      </a>
+      <p>Helping B2B brands build trusted international online presence — website, search, and growth systems connected.</p>
+      <div class="socials">
+        <a href="mailto:hello@hurfi.com" aria-label="Email Hurfi">Email</a>
+        <a href="https://www.linkedin.com/company/hurfi" target="_blank" rel="noopener noreferrer" aria-label="Hurfi on LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="portfolio-website.html">Website Development</a>
+      <a href="portfolio-seo.html">SEO</a>
+      <a href="services.html">Digital Marketing</a>
+      <a href="portfolio-branding.html">Branding</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="portfolio.html">Case Studies</a>
+      <a href="contact.html">Strategy Call</a>
+      <a href="about.html">Our Process</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@hurfi.com">hello@hurfi.com</a>
+      <a href="contact.html">Book a Strategy Call</a>
+      <p>Global · Remote-first</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Hurfi. All rights reserved.</span>
+    <div><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+  </div>
+</footer>
     </div>
     <script src="js/site.js"></script>
-    <script>document.addEventListener("DOMContentLoaded", function () { window.renderWebsiteGrid("website-grid"); });</script>
   </body>
 </html>

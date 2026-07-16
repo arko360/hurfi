@@ -4,14 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Portfolio — Hurfi</title>
+    <meta name="description" content="Explore Hurfi portfolio work across website development, SEO, and branding & growth." />
+    <link rel="canonical" href="https://hurfi.com/portfolio" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Portfolio — Hurfi" />
+    <meta property="og:description" content="Explore Hurfi portfolio work across website development, SEO, and branding & growth." />
+    <meta property="og:url" content="https://hurfi.com/portfolio" />
+    <meta property="og:image" content="https://hurfi.com/assets/images/hurfi-logo-color.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portfolio — Hurfi" />
+    <meta name="twitter:description" content="Explore Hurfi portfolio work across website development, SEO, and branding & growth." />
+
     <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body>
     <div class="site-wrap">
-      <div id="site-header"></div>
-      <main class="portfolio-landing">
+      <div id="site-header">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header" data-tone="light">
+  <div class="header-shell container">
+    <div class="header-glass">
+      <a class="brand" href="index.html" aria-label="Hurfi home">
+        <img src="assets/icons/hurfi-mark.png" alt="" width="34" height="34" />
+        <span>Hurfi</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown is-active" id="portfolio-dropdown">
+          <a href="portfolio.html" class="nav-dropdown-trigger is-active" aria-haspopup="menu" aria-expanded="false">
+            Portfolio
+            <span class="caret" aria-hidden="true"></span>
+          </a>
+          <div class="nav-dropdown-menu" role="menu" aria-label="Portfolio categories">
+            <a href="portfolio-website.html" role="menuitem">
+              <strong>Website Development</strong>
+              <span>High-converting B2B sites</span>
+            </a>
+            <a href="portfolio-seo.html" role="menuitem">
+              <strong>SEO</strong>
+              <span>Search visibility &amp; rankings</span>
+            </a>
+            <a href="portfolio-branding.html" role="menuitem">
+              <strong>Branding &amp; Growth</strong>
+              <span>Identity systems that scale</span>
+            </a>
+          </div>
+        </div>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <div class="nav-mobile-ctas">
+          <a class="btn btn-ghost btn-sm" href="services.html">See Our Services</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book a Strategy Call</a>
+        </div>
+      </nav>
+      <div class="header-end">
+        <div class="header-actions">
+          <a class="btn btn-ghost btn-sm header-cta" href="services.html">See Our Services</a>
+          <a class="btn btn-primary btn-sm header-cta magnetic cta-shine" href="contact.html">Book a Strategy Call</a>
+        </div>
+        <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+      </div>
+      <main id="main-content" class="portfolio-landing">
         <section class="portfolio-viewport">
           <div class="pf-bg" aria-hidden="true">
             <span class="pf-grid"></span>
@@ -20,26 +86,18 @@
             <span class="pf-blob c"></span>
           </div>
 
-          <div class="pf-top-nav">
-            <a class="pf-back-btn" href="index.html">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              <span>Back to Home</span>
-            </a>
-          </div>
-
-          <div class="pf-hero-row">
-            <div class="pf-hero-copy">
-              <span class="pf-badge">✨ Trusted Digital Solutions</span>
-              <h1>Our Portfolio</h1>
-              <div class="pf-dividers" aria-hidden="true"><span></span><span></span></div>
-              <p>Explore the work that helps businesses build, rank, and grow with Hurfi.</p>
+          <div class="container portfolio-inner">
+            <div class="pf-hero-row">
+              <div class="pf-hero-copy">
+                <span class="pf-badge">Trusted Digital Solutions</span>
+                <h1>Our Portfolio</h1>
+                <div class="pf-dividers" aria-hidden="true"><span></span><span></span></div>
+                <p>Explore the work that helps businesses build, rank, and grow with Hurfi.</p>
+              </div>
+              <div class="pf-hero-spacer"></div>
             </div>
-            <div class="pf-hero-spacer"></div>
-          </div>
 
-          <div class="pf-cards">
+            <div class="pf-cards">
             <a class="pf-card" href="portfolio-website.html" style="background: rgba(255,255,255,0.7)">
               <div class="pf-card-preview" style="background: linear-gradient(145deg, rgba(0,86,255,0.16), rgba(255,255,255,0.4))">
                 <div class="pf-prev pf-prev-website" aria-hidden="true">
@@ -51,12 +109,8 @@
                       <span class="pf-prev-tab ghost">+2</span>
                     </div>
                     <div class="pf-prev-chrome"><i></i><i></i><i></i><em>hurfi.com/portfolio/website</em></div>
-                    <div class="pf-prev-grid">
-                      <div class="pf-prev-thumb"><div class="pf-prev-thumb-scroll"><img src="portfolio-preview/cards/ghorsajan.webp" alt="" loading="lazy" /></div></div>
-                      <div class="pf-prev-thumb"><div class="pf-prev-thumb-scroll"><img src="portfolio-preview/cards/realsignbd.webp" alt="" loading="lazy" /></div></div>
-                      <div class="pf-prev-thumb"><div class="pf-prev-thumb-scroll"><img src="portfolio-preview/cards/gullyapparel.webp" alt="" loading="lazy" /></div></div>
-                      <div class="pf-prev-thumb"><div class="pf-prev-thumb-scroll"><img src="portfolio-preview/cards/gozeroprint.webp" alt="" loading="lazy" /></div></div>
-                      <div class="pf-prev-thumb"><div class="pf-prev-thumb-scroll"><img src="portfolio-preview/cards/zaiax.webp" alt="" loading="lazy" /></div></div>
+                    <div class="pf-rotate" data-pf-rotate>
+                      <div class="pf-rotate-slide is-active"><img src="portfolio-preview/slides/ghorsajan/01.jpg" alt="" width="720" height="540" loading="eager" decoding="async" /></div>
                     </div>
                   </div>
                 </div>
@@ -67,7 +121,7 @@
               <div class="pf-card-body">
                 <h2>Website Development</h2>
                 <p>Conversion-focused B2B websites engineered for trust and international growth.</p>
-                <span class="btn btn-primary pf-cta">→ View Showcase<span class="btn-arrow">→</span></span>
+                <span class="btn btn-primary pf-cta">View Showcase<span class="btn-arrow">→</span></span>
               </div>
             </a>
 
@@ -91,7 +145,7 @@
               <div class="pf-card-body">
                 <h2>SEO</h2>
                 <p>Search systems that improve rankings, organic traffic, and qualified inbound demand.</p>
-                <span class="btn btn-primary pf-cta">→ View Showcase<span class="btn-arrow">→</span></span>
+                <span class="btn btn-primary pf-cta">View Showcase<span class="btn-arrow">→</span></span>
               </div>
             </a>
 
@@ -110,23 +164,72 @@
               <div class="pf-card-body">
                 <h2>Branding &amp; Growth</h2>
                 <p>Identity and growth systems that make brands memorable, credible, and scalable.</p>
-                <span class="btn btn-primary pf-cta">→ View Showcase<span class="btn-arrow">→</span></span>
+                <span class="btn btn-primary pf-cta">View Showcase<span class="btn-arrow">→</span></span>
               </div>
             </a>
           </div>
+          </div>
         </section>
 
-        <section class="section pf-cta-band">
-          <div class="container pf-cta-band-inner">
-            <div>
-              <h2>Ready to build a presence global buyers trust?</h2>
-              <p>Book a strategy call and we’ll map website, SEO, and growth priorities for your market.</p>
+        <section class="section cta-band">
+          <div class="container">
+            <div class="cta-band-inner" data-cta>
+              <div class="cta-copy">
+                <div>
+                  <h2>Ready to build a presence global buyers trust?</h2>
+                  <p>Book a strategy call and we'll map website, SEO, and growth priorities for your market.</p>
+                </div>
+              </div>
+              <a class="btn btn-primary magnetic cta-shine" href="contact.html">Book a Strategy Call<span class="btn-arrow">→</span></a>
             </div>
-            <a class="btn btn-primary" href="contact.html">Book a Strategy Call<span class="btn-arrow">→</span></a>
           </div>
         </section>
       </main>
-      <div id="site-footer"></div>
+      <footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">
+        <img src="assets/icons/hurfi-mark.png" alt="" width="32" height="32" />
+        <span>Hurfi</span>
+      </a>
+      <p>Helping B2B brands build trusted international online presence — website, search, and growth systems connected.</p>
+      <div class="socials">
+        <a href="mailto:hello@hurfi.com" aria-label="Email Hurfi">Email</a>
+        <a href="https://www.linkedin.com/company/hurfi" target="_blank" rel="noopener noreferrer" aria-label="Hurfi on LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="portfolio-website.html">Website Development</a>
+      <a href="portfolio-seo.html">SEO</a>
+      <a href="services.html">Digital Marketing</a>
+      <a href="portfolio-branding.html">Branding</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="portfolio.html">Case Studies</a>
+      <a href="contact.html">Strategy Call</a>
+      <a href="about.html">Our Process</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@hurfi.com">hello@hurfi.com</a>
+      <a href="contact.html">Book a Strategy Call</a>
+      <p>Global · Remote-first</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Hurfi. All rights reserved.</span>
+    <div><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+  </div>
+</footer>
     </div>
     <script src="js/site.js"></script>
   </body>

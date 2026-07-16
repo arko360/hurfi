@@ -4,6 +4,8 @@ Static **HTML / CSS / JavaScript** website for [hurfi.com](https://hurfi.com).
 
 **No Node.js. No npm. No React. No build step.**
 
+Header, footer, navigation, and page content all live in the HTML files. JavaScript only adds interactions (menu, scroll effects, form handoff).
+
 ## Local preview
 
 Open `index.html` in your browser.
@@ -12,9 +14,9 @@ Open `index.html` in your browser.
 
 | What | Where |
 |------|--------|
-| Pages | `*.html` |
+| Pages (including header & footer) | `*.html` |
 | Styles | `css/site.css` |
-| Nav + website cards | `js/site.js` |
+| Interactions only | `js/site.js` |
 | Images | `assets/`, `portfolio-preview/` |
 
 ## Deploy (Hostinger)

@@ -3,18 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description" content="Hurfi — Build an international online presence that global buyers can trust." />
     <title>Hurfi — Global B2B Brand Growth Partner</title>
+    <meta name="description" content="Hurfi helps B2B brands build websites, SEO, and growth systems that global buyers can trust." />
+    <link rel="canonical" href="https://hurfi.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Hurfi — Global B2B Brand Growth Partner" />
+    <meta property="og:description" content="Hurfi helps B2B brands build websites, SEO, and growth systems that global buyers can trust." />
+    <meta property="og:url" content="https://hurfi.com" />
+    <meta property="og:image" content="https://hurfi.com/assets/images/hurfi-logo-color.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hurfi — Global B2B Brand Growth Partner" />
+    <meta name="twitter:description" content="Hurfi helps B2B brands build websites, SEO, and growth systems that global buyers can trust." />
+
     <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Hurfi",
+        "url": "https://hurfi.com",
+        "logo": "https://hurfi.com/assets/images/hurfi-logo-color.png",
+        "email": "hello@hurfi.com",
+        "sameAs": ["https://www.linkedin.com/company/hurfi"],
+        "description": "Hurfi helps B2B brands build websites, SEO, and growth systems that global buyers can trust."
+      }
+    </script>
   </head>
   <body>
     <div class="site-wrap">
-      <div id="site-header"></div>
-      <main>
+      <div id="site-header">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header" data-tone="light">
+  <div class="header-shell container">
+    <div class="header-glass">
+      <a class="brand" href="index.html" aria-label="Hurfi home">
+        <img src="assets/icons/hurfi-mark.png" alt="" width="34" height="34" />
+        <span>Hurfi</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="index.html" class="is-active">Home</a>
+        <div class="nav-dropdown" id="portfolio-dropdown">
+          <a href="portfolio.html" class="nav-dropdown-trigger" aria-haspopup="menu" aria-expanded="false">
+            Portfolio
+            <span class="caret" aria-hidden="true"></span>
+          </a>
+          <div class="nav-dropdown-menu" role="menu" aria-label="Portfolio categories">
+            <a href="portfolio-website.html" role="menuitem">
+              <strong>Website Development</strong>
+              <span>High-converting B2B sites</span>
+            </a>
+            <a href="portfolio-seo.html" role="menuitem">
+              <strong>SEO</strong>
+              <span>Search visibility &amp; rankings</span>
+            </a>
+            <a href="portfolio-branding.html" role="menuitem">
+              <strong>Branding &amp; Growth</strong>
+              <span>Identity systems that scale</span>
+            </a>
+          </div>
+        </div>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <div class="nav-mobile-ctas">
+          <a class="btn btn-ghost btn-sm" href="services.html">See Our Services</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book a Strategy Call</a>
+        </div>
+      </nav>
+      <div class="header-end">
+        <div class="header-actions">
+          <a class="btn btn-ghost btn-sm header-cta" href="services.html">See Our Services</a>
+          <a class="btn btn-primary btn-sm header-cta magnetic cta-shine" href="contact.html">Book a Strategy Call</a>
+        </div>
+        <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+      </div>
+      <main id="main-content">
         <section class="hero">
           <div class="hero-orbs" aria-hidden="true">
             <span class="orb o1"></span>
@@ -152,37 +227,125 @@
           </div>
         </section>
 
-        <section class="section values">
+        <section class="section values" data-values>
+          <h2 class="visually-hidden">Why brands choose Hurfi</h2>
+          <div class="values-bg" aria-hidden="true">
+            <span class="values-grid-pat"></span>
+            <span class="values-orb o1"></span>
+            <span class="values-orb o2"></span>
+            <span class="values-orb o3"></span>
+            <span class="values-spark s1"></span>
+            <span class="values-spark s2"></span>
+            <span class="values-spark s3"></span>
+            <span class="values-spark s4"></span>
+            <svg class="values-connectors" viewBox="0 0 1200 280" preserveAspectRatio="none">
+              <path class="values-conn" d="M220 140 C380 80, 520 80, 600 140" />
+              <path class="values-conn" d="M600 140 C700 200, 860 200, 980 140" />
+            </svg>
+          </div>
           <div class="container values-grid">
-            <article class="card value-card">
-              <div class="value-icon">🌐</div>
+            <article class="value-card" style="--d:0">
+              <div class="value-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c2.5 2.8 3.8 5.8 3.8 9s-1.3 6.2-3.8 9c-2.5-2.8-3.8-5.8-3.8-9S9.5 5.8 12 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              </div>
               <h3>International Growth</h3>
               <p>Position your brand for overseas buyers with a presence that builds trust across markets.</p>
+              <span class="value-line" aria-hidden="true"></span>
             </article>
-            <article class="card value-card">
-              <div class="value-icon">📊</div>
+            <article class="value-card" style="--d:1">
+              <div class="value-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M8 16V10M12 16V7M16 16v-5M20 16V9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </div>
               <h3>Data-Driven Results</h3>
               <p>SEO, content, and conversion systems measured by traffic, leads, and real enquiries.</p>
+              <span class="value-line" aria-hidden="true"></span>
             </article>
-            <article class="card value-card">
-              <div class="value-icon">⚡</div>
+            <article class="value-card" style="--d:2">
+              <div class="value-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h7l-1 8 10-14h-7l0-6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              </div>
               <h3>End-to-End Solutions</h3>
               <p>Website, search, branding, and marketing connected — not delivered as disconnected tasks.</p>
+              <span class="value-line" aria-hidden="true"></span>
             </article>
           </div>
         </section>
 
         <section class="section cta-band">
-          <div class="container cta-band-inner">
-            <div>
-              <h2>Ready to build a presence global buyers trust?</h2>
-              <p>Book a strategy call and we’ll map website, SEO, and growth priorities for your market.</p>
+          <div class="container">
+            <div class="cta-band-inner" data-cta>
+              <div class="cta-fx" aria-hidden="true">
+                <span class="cta-orb"></span>
+                <span class="cta-btn-glow"></span>
+                <svg class="cta-flow" viewBox="0 0 900 220" preserveAspectRatio="none">
+                  <path d="M-40 160 C120 40, 280 200, 460 90 C620 0, 760 170, 940 70" />
+                  <path d="M-20 190 C160 90, 320 210, 500 120 C680 40, 800 180, 960 110" />
+                </svg>
+                <span class="cta-dot d1"></span>
+                <span class="cta-dot d2"></span>
+                <span class="cta-dot d3"></span>
+                <span class="cta-dot d4"></span>
+                <span class="cta-dot d5"></span>
+              </div>
+              <div class="cta-copy">
+                <span class="cta-phone" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M7.5 3.8c.5-1.1 1.8-1.5 2.8-.9l1.7 1c.8.5 1.1 1.5.7 2.3L12 8.5c1.6 3 4 5.4 7 7l2.3-.7c.8-.3 1.8 0 2.3.7l1 1.7c.6 1 .2 2.3-.9 2.8-1.7.8-3.8 1.1-5.9.2C12.2 18.1 6 11.9 3.9 5.3c-.8-2.1-.5-4.2.2-5.9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                </span>
+                <div>
+                  <h2>Ready to build a presence <span class="text-accent">global buyers</span> trust?</h2>
+                  <p>Book a strategy call and we’ll map website, SEO, and growth priorities for your market.</p>
+                </div>
+              </div>
+              <a class="btn btn-primary magnetic cta-shine" href="contact.html">Book a Strategy Call<span class="btn-arrow">↗</span></a>
             </div>
-            <a class="btn btn-primary" href="contact.html">Book a Strategy Call<span class="btn-arrow">→</span></a>
           </div>
         </section>
       </main>
-      <div id="site-footer"></div>
+      <footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">
+        <img src="assets/icons/hurfi-mark.png" alt="" width="32" height="32" />
+        <span>Hurfi</span>
+      </a>
+      <p>Helping B2B brands build trusted international online presence — website, search, and growth systems connected.</p>
+      <div class="socials">
+        <a href="mailto:hello@hurfi.com" aria-label="Email Hurfi">Email</a>
+        <a href="https://www.linkedin.com/company/hurfi" target="_blank" rel="noopener noreferrer" aria-label="Hurfi on LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="portfolio-website.html">Website Development</a>
+      <a href="portfolio-seo.html">SEO</a>
+      <a href="services.html">Digital Marketing</a>
+      <a href="portfolio-branding.html">Branding</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="portfolio.html">Case Studies</a>
+      <a href="contact.html">Strategy Call</a>
+      <a href="about.html">Our Process</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@hurfi.com">hello@hurfi.com</a>
+      <a href="contact.html">Book a Strategy Call</a>
+      <p>Global · Remote-first</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Hurfi. All rights reserved.</span>
+    <div><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+  </div>
+</footer>
     </div>
     <script src="js/site.js"></script>
   </body>

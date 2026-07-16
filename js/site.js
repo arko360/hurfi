@@ -1,161 +1,201 @@
-/* Hurfi static site — plain JS, no Node/React */
+/* Hurfi static site — behavior only. Header, footer, and content live in HTML. */
 (function () {
-  const year = new Date().getFullYear();
-
-  function path() {
-    return (location.pathname.replace(/\\/g, "/") || "/").replace(/\/index\.html$/i, "/");
-  }
-
-  function isActive(href) {
-    const p = path();
-    if (href === "/" || href === "/index.html") {
-      return p === "/" || p.endsWith("/html/") || p.endsWith("/html/index.html") || /\/index\.html$/i.test(p) && !p.includes("portfolio") && !p.includes("services");
-    }
-    return p.indexOf(href.replace(/\.html$/, "")) !== -1 || p.indexOf(href) !== -1;
-  }
-
-  function pageFile(name) {
-    // All pages live flat in the same folder — no Node, no nested routes.
-    if (name.startsWith("http") || name.startsWith("mailto") || name.startsWith("tel") || name.startsWith("#")) {
-      return name;
-    }
-    if (name === "/" || name === "") return "index.html";
-    return name.replace(/^\//, "");
-  }
-
-  const portfolioItems = [
-    { href: "portfolio-website.html", label: "Website Development", desc: "High-converting B2B sites" },
-    { href: "portfolio-seo.html", label: "SEO", desc: "Search visibility & rankings" },
-    { href: "portfolio-branding.html", label: "Branding & Growth", desc: "Identity systems that scale" },
-  ];
-
-  function headerHTML() {
-    const home = pageFile("index.html");
-    const portfolio = pageFile("portfolio.html");
-    const services = pageFile("services.html");
-    const about = pageFile("about.html");
-    const pricing = pageFile("pricing.html");
-    const contact = pageFile("contact.html");
-    const mark = pageFile("assets/icons/hurfi-mark.png");
-
-    const pItems = portfolioItems
-      .map(
-        (item) => `
-      <a href="${pageFile(item.href)}" role="menuitem">
-        <strong>${item.label}</strong>
-        <span>${item.desc}</span>
-      </a>`
-      )
-      .join("");
-
-    return `
-<header class="site-header">
-  <div class="header-shell container">
-    <div class="header-glass">
-      <a class="brand" href="${home}" aria-label="Hurfi home">
-        <img src="${mark}" alt="" width="34" height="34" />
-        <span>Hurfi</span>
-      </a>
-      <nav class="nav" id="site-nav" aria-label="Primary">
-        <a href="${home}" class="${isActive("index.html") ? "is-active" : ""}">Home</a>
-        <div class="nav-dropdown ${path().includes("portfolio") ? "is-active" : ""}" id="portfolio-dropdown">
-          <a href="${portfolio}" class="nav-dropdown-trigger ${path().includes("portfolio") ? "is-active" : ""}" aria-haspopup="menu" aria-expanded="false">
-            Portfolio
-            <span class="caret" aria-hidden="true"></span>
-          </a>
-          <div class="nav-dropdown-menu" role="menu" aria-label="Portfolio categories">
-            ${pItems}
-          </div>
-        </div>
-        <a href="${services}" class="${path().includes("services") ? "is-active" : ""}">Services</a>
-        <a href="${about}" class="${path().includes("about") ? "is-active" : ""}">About</a>
-        <a href="${pricing}" class="${path().includes("pricing") ? "is-active" : ""}">Pricing</a>
-        <a href="${contact}" class="${path().includes("contact") ? "is-active" : ""}">Contact</a>
-      </nav>
-      <div class="header-end">
-        <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-label="Open menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>`;
-  }
-
-  function footerHTML() {
-    const mark = pageFile("assets/icons/hurfi-mark.png");
-    return `
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div class="footer-brand">
-      <a href="${pageFile("index.html")}" class="footer-logo">
-        <img src="${mark}" alt="" />
-        <span>Hurfi</span>
-      </a>
-      <p>Helping B2B brands build trusted international online presence — website, search, and growth systems connected.</p>
-      <div class="socials">
-        <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="X">X</a>
-        <a href="#" aria-label="Instagram">ig</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <a href="${pageFile("portfolio-website.html")}">Website Development</a>
-      <a href="${pageFile("portfolio-seo.html")}">SEO</a>
-      <a href="${pageFile("services.html")}">Digital Marketing</a>
-      <a href="${pageFile("portfolio-branding.html")}">Branding</a>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <a href="${pageFile("about.html")}">About</a>
-      <a href="${pageFile("portfolio.html")}">Portfolio</a>
-      <a href="${pageFile("pricing.html")}">Pricing</a>
-      <a href="${pageFile("contact.html")}">Contact</a>
-    </div>
-    <div class="footer-col">
-      <h4>Resources</h4>
-      <a href="${pageFile("portfolio.html")}">Case Studies</a>
-      <a href="${pageFile("contact.html")}">Strategy Call</a>
-      <a href="${pageFile("about.html")}">Our Process</a>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <a href="mailto:hello@hurfi.com">hello@hurfi.com</a>
-      <a href="tel:+10000000000">+1 (000) 000-0000</a>
-      <p>Global · Remote-first</p>
-    </div>
-  </div>
-  <div class="container footer-bottom">
-    <span>© ${year} Hurfi. All rights reserved.</span>
-    <div><a href="#">Privacy</a><a href="#">Terms</a></div>
-  </div>
-</footer>`;
-  }
-
-  function initShell() {
-    const headerMount = document.getElementById("site-header");
-    const footerMount = document.getElementById("site-footer");
-    if (headerMount) headerMount.innerHTML = headerHTML();
-    if (footerMount) footerMount.innerHTML = footerHTML();
-    initNav();
-    initHeaderScroll();
-    initHeroExperience();
-    initMagneticButtons(document);
-  }
-
   function prefersReducedMotion() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
+  function initShell() {
+    const main = document.querySelector("main");
+    if (main && !main.id) main.id = "main-content";
+    initNav();
+    initHeaderScroll();
+    initHeroExperience();
+    initValuesSection();
+    initMagneticButtons(document);
+    initStrategyForm();
+    const grid = document.getElementById("website-grid");
+    if (grid) initWebsiteShowcase(grid);
+  }
+
+  function initStrategyForm() {
+    const form = document.getElementById("strategy-form");
+    const success = document.getElementById("book-success");
+    if (!form || !success) return;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const honey = form.querySelector(".hp-field");
+      if (honey && honey.value) return;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = new FormData(form);
+      const lines = [];
+      data.forEach((value, key) => {
+        if (key === "company_website") return;
+        lines.push(key + ": " + value);
+      });
+
+      const subject = encodeURIComponent("Hurfi strategy call request");
+      const body = encodeURIComponent(lines.join("\n"));
+      window.location.href = "mailto:hello@hurfi.com?subject=" + subject + "&body=" + body;
+      form.hidden = true;
+      success.hidden = false;
+      success.focus?.();
+      success.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "center" });
+    });
+  }
+
+  function initValuesSection() {
+    const values = document.querySelector("[data-values]");
+    const cta = document.querySelector("[data-cta]");
+    if (!values && !cta) return;
+
+    if (prefersReducedMotion()) {
+      if (values) values.classList.add("is-inview");
+      return;
+    }
+
+    if (values && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-inview");
+            io.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.22, rootMargin: "0px 0px -8% 0px" }
+      );
+      io.observe(values);
+    } else if (values) {
+      values.classList.add("is-inview");
+    }
+
+    initSoftParallax(values, ".values-orb, .values-spark, .values-connectors", 6);
+    initSoftParallax(cta, ".cta-orb, .cta-btn-glow, .cta-flow, .cta-dot", 4);
+  }
+
+  function initSoftParallax(root, selector, strength) {
+    if (!root) return;
+    const layers = Array.from(root.querySelectorAll(selector));
+    if (!layers.length) return;
+
+    let raf = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    const max = strength || 5;
+
+    const render = () => {
+      currentX += (targetX - currentX) * 0.07;
+      currentY += (targetY - currentY) * 0.07;
+      layers.forEach((el, i) => {
+        const depth = ((i % 4) + 1) * 0.9;
+        el.style.translate = (currentX * depth).toFixed(2) + "px " + (currentY * depth).toFixed(2) + "px";
+      });
+      raf = requestAnimationFrame(render);
+    };
+
+    const onMove = (event) => {
+      const rect = root.getBoundingClientRect();
+      if (rect.width < 1 || rect.height < 1) return;
+      targetX = ((event.clientX - rect.left) / rect.width - 0.5) * max;
+      targetY = ((event.clientY - rect.top) / rect.height - 0.5) * max;
+    };
+
+    const onLeave = () => {
+      targetX = 0;
+      targetY = 0;
+    };
+
+    root.addEventListener("pointermove", onMove);
+    root.addEventListener("pointerleave", onLeave);
+    raf = requestAnimationFrame(render);
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else raf = requestAnimationFrame(render);
+      },
+      { passive: true }
+    );
+  }
+
   function initHeaderScroll() {
     const header = document.querySelector(".site-header");
+    const mount = document.getElementById("site-header");
     if (!header) return;
-    const onScroll = () => {
-      header.classList.toggle("is-scrolled", window.scrollY > 12);
+
+    let raf = 0;
+    let lastTone = "light";
+
+    const syncSpacer = () => {
+      const h = Math.ceil(header.getBoundingClientRect().height);
+      if (h > 0) {
+        const value = h + "px";
+        document.documentElement.style.setProperty("--header-offset", value);
+        if (mount) mount.style.setProperty("--header-offset", value);
+      }
     };
-    onScroll();
+
+    const sampleTone = () => {
+      const probeY = Math.min(window.innerHeight * 0.12, 88);
+      const x = Math.min(window.innerWidth - 24, Math.max(24, window.innerWidth * 0.5));
+      const el = document.elementFromPoint(x, probeY);
+      if (!el || header.contains(el)) return lastTone;
+
+      let node = el;
+      for (let i = 0; i < 8 && node; i++) {
+        if (node.matches && node.matches(".cta-band-inner, .site-footer, .cta-band, .pf-cta-band, .wd-cta, [data-tone='dark']")) {
+          return "dark";
+        }
+        if (node.matches && node.matches(".hero, .values, .trust-bar, [data-tone='blue'], .page-hero, .portfolio-viewport, .cat-hero")) {
+          return "blue";
+        }
+        node = node.parentElement;
+      }
+
+      const bg = window.getComputedStyle(el).backgroundColor;
+      const m = bg && bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+      if (m) {
+        const r = +m[1];
+        const g = +m[2];
+        const b = +m[3];
+        const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+        if (lum < 0.35) return "dark";
+        if (b > r + 15 && b > 160) return "blue";
+      }
+      return "light";
+    };
+
+    const update = () => {
+      raf = 0;
+      const scrolled = window.scrollY > 10;
+      header.classList.toggle("is-scrolled", scrolled);
+      const tone = scrolled ? sampleTone() : "light";
+      if (tone !== lastTone) {
+        lastTone = tone;
+        header.setAttribute("data-tone", tone);
+      }
+      syncSpacer();
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", () => {
+      syncSpacer();
+      onScroll();
+    }, { passive: true });
   }
 
   function initHeroExperience() {
@@ -328,7 +368,13 @@
       if (!dropdown.contains(e.target)) softClose();
     });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") softClose();
+      if (e.key !== "Escape") return;
+      softClose();
+      if (toggle && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+      }
     });
 
     if (toggle) {
@@ -340,143 +386,207 @@
     }
   }
 
-  // Website portfolio cards — minimal showcase + slideshow
-  window.HURFI_WEBSITES = [
-    {
-      slug: "ghorsajan",
-      name: "Ghorsajan",
-      url: "https://ghorsajan.com/",
-      caseUrl: "case-ghorsajan.html",
-      slides: [
-        "portfolio-preview/slides/ghorsajan/01.webp",
-        "portfolio-preview/slides/ghorsajan/02.webp",
-        "portfolio-preview/slides/ghorsajan/03.jpg",
-        "portfolio-preview/slides/ghorsajan/04.jpg",
-        "portfolio-preview/slides/ghorsajan/05.webp",
-      ],
-    },
-    {
-      slug: "real-sign-bd",
-      name: "Real Sign BD",
-      url: "https://realsignbd.com/",
-      caseUrl: "case-real-sign-bd.html",
-      slides: [
-        "portfolio-preview/slides/real-sign-bd/01.webp",
-        "portfolio-preview/slides/real-sign-bd/02.webp",
-        "portfolio-preview/slides/real-sign-bd/03.jpg",
-        "portfolio-preview/slides/real-sign-bd/04.jpg",
-        "portfolio-preview/slides/real-sign-bd/05.webp",
-      ],
-    },
-    {
-      slug: "gully-apparel",
-      name: "Gully Apparel",
-      url: "https://gullyapparel.store/",
-      caseUrl: "case-gully-apparel.html",
-      slides: [
-        "portfolio-preview/slides/gully-apparel/01.webp",
-        "portfolio-preview/slides/gully-apparel/02.webp",
-        "portfolio-preview/slides/gully-apparel/03.jpg",
-        "portfolio-preview/slides/gully-apparel/04.jpg",
-        "portfolio-preview/slides/gully-apparel/05.webp",
-      ],
-    },
-    {
-      slug: "gozero-print",
-      name: "Gozero Print",
-      url: "https://gozeroprint.com/",
-      caseUrl: "case-gozero-print.html",
-      slides: [
-        "portfolio-preview/slides/gozero-print/01.webp",
-        "portfolio-preview/slides/gozero-print/02.webp",
-        "portfolio-preview/slides/gozero-print/03.jpg",
-        "portfolio-preview/slides/gozero-print/04.jpg",
-        "portfolio-preview/slides/gozero-print/05.webp",
-      ],
-    },
-    {
-      slug: "zaiax",
-      name: "Zaiax",
-      url: "https://zaiax.com/",
-      caseUrl: "case-zaiax.html",
-      slides: [
-        "portfolio-preview/slides/zaiax/01.webp",
-        "portfolio-preview/slides/zaiax/02.webp",
-        "portfolio-preview/slides/zaiax/03.jpg",
-        "portfolio-preview/slides/zaiax/04.jpg",
-        "portfolio-preview/slides/zaiax/05.webp",
-      ],
-    },
-  ];
+  function preloadImage(src) {
+    if (!src || preloadImage._cache[src]) return;
+    preloadImage._cache[src] = true;
+    const img = new Image();
+    img.decoding = "async";
+    img.src = src;
+  }
+  preloadImage._cache = Object.create(null);
 
-  function initWebsiteSlideshows(root) {
-    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      root?.querySelectorAll(".wd-showcase").forEach((sc) => {
-        sc.querySelectorAll(".wd-slide").forEach((s, idx) => s.classList.toggle("is-active", idx === 0));
-      });
-      return;
+  function ensureImgSrc(img) {
+    if (!img) return;
+    const src = img.getAttribute("data-src");
+    if (src && !img.getAttribute("src")) {
+      img.setAttribute("src", src);
+      img.removeAttribute("data-src");
     }
-
-    root.querySelectorAll(".wd-showcase").forEach((showcase) => {
-      const slides = Array.from(showcase.querySelectorAll(".wd-slide"));
-      if (slides.length < 2) return;
-      let index = 0;
-      let timer = null;
-
-      const show = (next) => {
-        slides[index].classList.remove("is-active");
-        index = (next + slides.length) % slides.length;
-        slides[index].classList.add("is-active");
-      };
-
-      const start = () => {
-        stop();
-        timer = window.setInterval(() => show(index + 1), 3500);
-      };
-      const stop = () => {
-        if (timer) window.clearInterval(timer);
-        timer = null;
-      };
-
-      showcase.addEventListener("pointerenter", stop);
-      showcase.addEventListener("pointerleave", start);
-      start();
-    });
   }
 
-  window.renderWebsiteGrid = function (mountId) {
-    const el = document.getElementById(mountId);
-    if (!el) return;
+  function createWebsiteCardController(card) {
+    const showcase = card.querySelector(".wd-showcase");
+    if (!showcase) return null;
 
-    el.innerHTML = window.HURFI_WEBSITES.map((p, i) => {
-      const slides = (p.slides || []).map(
-        (src, sIdx) => `
-          <div class="wd-slide${sIdx === 0 ? " is-active" : ""}">
-            <img
-              src="${src}"
-              alt="${p.name} preview ${sIdx + 1}"
-              width="1200"
-              height="800"
-              loading="${i < 3 && sIdx === 0 ? "eager" : "lazy"}"
-              decoding="async"
-            />
-          </div>`
-      ).join("");
+    const scrollImg = showcase.querySelector(".wd-scroll-layer img");
+    const reduce = prefersReducedMotion();
+    let raf = 0;
+    let hovering = false;
+    let peekDone = false;
+    let scrollY = 0;
+    let scrollDir = 1;
+    let lastTs = 0;
+    let destroyed = false;
 
-      return `
-      <article class="wd-card">
-        <a class="wd-showcase" href="${p.caseUrl || "case-" + p.slug + ".html"}" aria-label="${p.name} case study">
-          ${slides}
-        </a>
-        <div class="wd-card-body">
-          <h2>${p.name}</h2>
-          <a class="btn btn-primary wd-btn" href="${p.url}" target="_blank" rel="noopener noreferrer">View Website<span class="btn-arrow">→</span></a>
-        </div>
-      </article>`;
-    }).join("");
+    const measureFrame = () => showcase.clientHeight || showcase.getBoundingClientRect().height;
 
-    initWebsiteSlideshows(el);
-  };
+    const setScrollY = (y) => {
+      scrollY = y;
+      if (scrollImg) scrollImg.style.setProperty("--sy", (-scrollY).toFixed(1) + "px");
+    };
+
+    const maxScroll = () => {
+      if (!scrollImg) return 0;
+      return Math.max(0, scrollImg.offsetHeight - measureFrame());
+    };
+
+    const stopScrollLoop = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      if (scrollImg) scrollImg.style.willChange = "auto";
+    };
+
+    const loadScrollImage = () =>
+      new Promise((resolve) => {
+        if (!scrollImg) {
+          resolve(false);
+          return;
+        }
+        ensureImgSrc(scrollImg);
+        if (scrollImg.complete && scrollImg.naturalHeight > 0) {
+          resolve(true);
+          return;
+        }
+        const done = () => resolve(scrollImg.naturalHeight > 0);
+        scrollImg.addEventListener("load", done, { once: true });
+        scrollImg.addEventListener("error", () => resolve(false), { once: true });
+        window.setTimeout(() => resolve(scrollImg.naturalHeight > 0), 1200);
+      });
+
+    const startHoverScroll = async () => {
+      if (reduce || !scrollImg) return;
+      const ok = await loadScrollImage();
+      if (!ok || !hovering || destroyed) return;
+      showcase.classList.add("is-scrolling");
+      scrollImg.style.willChange = "transform";
+      setScrollY(0);
+      scrollDir = 1;
+      lastTs = 0;
+
+      const tick = (ts) => {
+        if (!hovering || destroyed) return;
+        if (!lastTs) lastTs = ts;
+        const dt = Math.min(0.05, (ts - lastTs) / 1000);
+        lastTs = ts;
+        const max = maxScroll();
+        if (max <= 1) {
+          raf = requestAnimationFrame(tick);
+          return;
+        }
+        const progress = scrollY / max;
+        const edge = progress < 0.12 ? progress / 0.12 : progress > 0.88 ? (1 - progress) / 0.12 : 1;
+        const ease = 0.45 + 0.55 * Math.max(0.2, edge);
+        const speed = Math.max(28, measureFrame() * 0.18) * ease;
+        scrollY += scrollDir * speed * dt;
+        if (scrollY >= max) {
+          scrollY = max;
+          scrollDir = -1;
+        } else if (scrollY <= 0) {
+          scrollY = 0;
+          scrollDir = 1;
+        }
+        setScrollY(scrollY);
+        raf = requestAnimationFrame(tick);
+      };
+
+      stopScrollLoop();
+      scrollImg.style.willChange = "transform";
+      raf = requestAnimationFrame(tick);
+    };
+
+    const endHoverScroll = () => {
+      stopScrollLoop();
+      showcase.classList.remove("is-scrolling");
+      setScrollY(0);
+    };
+
+    const runPeek = async () => {
+      if (peekDone || reduce || !scrollImg || hovering) return;
+      peekDone = true;
+      const ok = await loadScrollImage();
+      if (!ok || hovering || destroyed) return;
+      showcase.classList.add("is-scrolling");
+      scrollImg.style.willChange = "transform";
+      setScrollY(0);
+      const duration = 1500;
+      const startAt = performance.now();
+      const tick = (now) => {
+        if (destroyed || hovering) {
+          showcase.classList.remove("is-scrolling");
+          setScrollY(0);
+          if (scrollImg) scrollImg.style.willChange = "auto";
+          return;
+        }
+        const t = Math.min(1, (now - startAt) / duration);
+        setScrollY(maxScroll() * 0.4 * Math.sin(t * Math.PI));
+        if (t < 1) raf = requestAnimationFrame(tick);
+        else {
+          showcase.classList.remove("is-scrolling");
+          setScrollY(0);
+          if (scrollImg) scrollImg.style.willChange = "auto";
+        }
+      };
+      stopScrollLoop();
+      raf = requestAnimationFrame(tick);
+    };
+
+    const onEnter = () => {
+      hovering = true;
+      startHoverScroll();
+    };
+    const onLeave = () => {
+      hovering = false;
+      endHoverScroll();
+    };
+
+    showcase.addEventListener("pointerenter", onEnter);
+    showcase.addEventListener("pointerleave", onLeave);
+
+    return {
+      peek: runPeek,
+      destroy() {
+        destroyed = true;
+        hovering = false;
+        stopScrollLoop();
+        showcase.removeEventListener("pointerenter", onEnter);
+        showcase.removeEventListener("pointerleave", onLeave);
+      },
+    };
+  }
+
+  function initWebsiteShowcase(root) {
+    if (!root) return;
+    const cards = Array.from(root.querySelectorAll(".wd-card"));
+    const controllers = cards.map((card) => createWebsiteCardController(card)).filter(Boolean);
+    root._wdControllers = controllers;
+
+    if (prefersReducedMotion()) return;
+
+    let peeked = false;
+    const kickoff = () => {
+      if (peeked) return;
+      peeked = true;
+      controllers.forEach((c, i) => window.setTimeout(() => c.peek(), i * 120));
+    };
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            kickoff();
+            io.disconnect();
+          });
+        },
+        { threshold: 0.18, rootMargin: "0px 0px -6% 0px" }
+      );
+      io.observe(root);
+    } else {
+      kickoff();
+    }
+  }
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initShell);
