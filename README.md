@@ -50,3 +50,5 @@ Upload into `public_html` (keep folders):
 - `404.html` is noindex
 - Security headers ship from `.htaccess`
 - Contact form opens a prefilled `mailto:hello@hurfi.com` (no server backend)
+- **Cache busting:** bump `ASSET_VERSION`, then run `powershell -File scripts/sync-asset-version.ps1` before upload/deploy
+- HTML pages send `no-cache` headers; CSS/JS/images use `?v=` query strings for immutable caching
